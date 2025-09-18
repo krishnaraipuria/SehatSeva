@@ -113,7 +113,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col">
+    <div className="app-container min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col">
       <OfflineIndicator isOnline={appState.isOnline} language={appState.language} />
       <div className="flex-1">
         {renderCurrentScreen()}
