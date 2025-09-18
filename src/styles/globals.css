@@ -164,7 +164,7 @@ html {
   border-right: 1px solid var(--border); 
   
 
-  min-height: 300vh; 
+  min-height: 80vh; 
 
   background-color: var(--background);
 }
