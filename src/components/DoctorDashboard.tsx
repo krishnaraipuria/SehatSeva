@@ -267,7 +267,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
                     <Button 
                       size="sm" 
                       className="flex-1 bg-green-600 hover:bg-green-700"
-                      onClick={() => navigateTo('video-consultation')}
+                      onClick={() => navigateTo('video-consultation-doctor')}
                     >
                       <Video className="w-4 h-4 mr-1" />
                       {t.startConsultation}
