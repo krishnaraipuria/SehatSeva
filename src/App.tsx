@@ -11,6 +11,7 @@ import { DoctorDashboard } from './components/DoctorDashboard';
 import { PharmacyDashboard } from './components/PharmacyDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { VideoConsultationDoctor } from './components/VideoConsultationDoctor';
 
 export type Language = 'en' | 'hi' | 'pa';
 export type UserType = 'patient' | 'doctor' | 'pharmacy' | 'admin';
@@ -93,6 +94,8 @@ export default function App() {
         return <PatientLogin {...commonProps} />;
       case 'patient-dashboard':
         return <PatientDashboard {...commonProps} />;
+      case 'video-consultation-doctor':
+        return <VideoConsultationDoctor {...commonProps} />;
       case 'video-consultation':
         return <VideoConsultation {...commonProps} />;
       case 'health-records':
