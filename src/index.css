@@ -2466,3 +2466,21 @@ html {
     transform: none;
   }
 }
+.app-container {
+  /* Ek aam mobile screen ki max-width set kar di */
+  max-width: 428px; 
+  
+  /* Container ko screen ke center mein laane ke liye */
+  margin-left: auto;
+  margin-right: auto;
+  
+  /* Optional: Thoda border de sakte hain taaki phone jaisa feel aaye */
+  border-left: 1px solid var(--border); /* Using existing variable */
+  border-right: 1px solid var(--border); /* Using existing variable */
+  
+  /* Ye sunishchit karega ki container kam se kam poori screen ki height le */
+  min-height: 100vh; /* Ya 100dvh ka bhi istemaal kar sakte hain */
+
+  /* Ek halka sa background de sakte hain alag dikhane ke liye */
+  background-color: var(--background);
+}
