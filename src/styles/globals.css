@@ -135,6 +135,8 @@ html, body, #root {
   width: 100%;
   margin: 0;
   padding: 0;
+  background: var(--background); /* ✅ force background apply */
+  overflow-x: hidden;
 }
 
 .h-screen {
