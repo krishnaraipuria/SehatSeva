@@ -262,7 +262,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
                   </div>
                 </div>
 
-                <div className="flex space-x-2 mt-4">
+                <div className="flex flex-wrap gap-2 mt-4">
                   {consultation.status === 'upcoming' && (
                     <Button 
                       size="sm" 
