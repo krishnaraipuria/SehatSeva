@@ -1,7 +1,7 @@
 
   # Multilingual Telemedicine App
 
-  This is a code bundle for Multilingual Telemedicine App. The original project is available at https://www.figma.com/design/IvvcdBhf3eDFD9XTaJPWxf/Multilingual-Telemedicine-App.
+  This is a code bundle for Multilingual Telemedicine App.
 
   ## Running the code
 
