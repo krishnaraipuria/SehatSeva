@@ -15,8 +15,8 @@ const translations = {
   en: {
     videoConsultation: 'Video Consultation',
     connectingTo: 'Connecting to',
-    patientName: 'Patient', // Changed from Dr. Sharma
-    details: 'Awaiting patient details...', // Changed
+    patientName: 'Patient', 
+    details: 'Awaiting patient details...',
     connecting: 'Connecting...',
     connected: 'Connected',
     lowDataMode: 'Low Data Mode',
@@ -49,8 +49,8 @@ const translations = {
   pa: {
     videoConsultation: 'ਵੀਡੀਓ ਸਲਾਹ',
     connectingTo: 'ਨਾਲ ਜੁੜ ਰਹੇ ਹਾਂ',
-    patientName: 'ਮਰੀਜ਼', // Changed
-    details: 'ਮਰੀਜ਼ ਦੇ ਵੇਰਵਿਆਂ ਦੀ ਉਡੀਕ ਹੈ...', // Changed
+    patientName: 'ਮਰੀਜ਼', 
+    details: 'ਮਰੀਜ਼ ਦੇ ਵੇਰਵਿਆਂ ਦੀ ਉਡੀਕ ਹੈ...',
     connecting: 'ਜੁੜ ਰਿਹਾ ਹੈ...',
     connected: 'ਜੁੜ ਗਿਆ',
     lowDataMode: 'ਘੱਟ ਡੇਟਾ ਮੋਡ',
@@ -111,7 +111,7 @@ export function VideoConsultationDoctor({ navigateTo, language, isOnline }: Vide
         <div className="w-full h-full bg-gray-900 flex items-center justify-center">
           {isConnected ? (
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1542884748-2b87b36c4b93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMGluZGlhbiUyMHBlcnNvbnxlbnwwfHx8fDE2NzU4MTg0NTA&ixlib=rb-4.0.3&q=80&w=1080"
+              src="https://images.unsplash.com/photo-1698465281093-9f09159733b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMGhlYWx0aGNhcmUlMjB2aWxsYWdlJTIwZG9jdG9yfGVufDF8fHx8MTc1ODE4MDUwMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
               alt="Patient"
               className="w-full h-full object-cover"
             />
