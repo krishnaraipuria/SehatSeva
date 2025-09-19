@@ -234,7 +234,7 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                     <p className="font-bold text-lg text-gray-800">₹{doctor.fees}</p>
                   </div>
                   <Button 
-                    className="bg-green-500 hover:bg-green-600 text-white"
+                    className="border bg-green-500 border-green-600 text-white hover:bg-green-600 disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400"
                     disabled={!doctorSelection}
                     onClick={() => handleBooking(index)}
                   >
