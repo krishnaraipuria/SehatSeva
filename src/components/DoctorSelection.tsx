@@ -128,11 +128,8 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
     const currentSelection = selection[doctorIndex];
     if (!currentSelection) return;
     
-    // 1. Show success toast. Make sure <Toaster /> is in your App.tsx
     toast.success(t.toastSuccess(currentSelection.slot, currentSelection.date));
 
-    // 2. Clear the selection to provide visual feedback that the booking is complete.
-    // This will make the button white again.
     setSelection(prev => ({
       ...prev,
       [doctorIndex]: null
@@ -233,10 +230,15 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                     <p className="text-xs text-gray-500">{t.fees}</p>
                     <p className="font-bold text-lg text-gray-800">₹{doctor.fees}</p>
                   </div>
-                  <Button 
-                    className="border bg-green-500 border-green-600 text-white hover:bg-green-600 disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400"
+                  <Button
+                    variant="outline"
                     disabled={!doctorSelection}
                     onClick={() => handleBooking(index)}
+                    className={`transition-colors ${
+                        doctorSelection
+                        ? 'bg-green-500 text-white border-green-500 hover:bg-green-600' // Enabled styles
+                        : 'bg-gray-200 text-gray-400 border-gray-200' // Disabled styles
+                    }`}
                   >
                     {t.bookAppointment}
                   </Button>
