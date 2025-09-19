@@ -5,7 +5,7 @@ import { Card } from './ui/card';
 import { Language } from '../App';
 import toast from 'react-hot-toast';
 
-// ... (translations and doctors data remains the same)
+
 const translations = {
   en: {
     title: 'Book a Consultation',
@@ -101,7 +101,7 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
     // THIS IS THE CORRECTION
     // It should navigate to the actual video call screen ('video-call-patient'),
     // not the doctor selection screen ('video-consultation').
-    navigateTo('video-call-patient'); 
+    navigateTo('video-consultation'); 
   };
 
   return (

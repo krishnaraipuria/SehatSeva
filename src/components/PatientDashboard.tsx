@@ -76,7 +76,7 @@ export function PatientDashboard({ navigateTo, language, logout, isOnline }: Pat
     { 
       icon: Video, 
       label: t.bookConsultation, 
-      screen: 'video-consultation',
+      screen: 'doctor-selection',
       color: 'bg-green-100 text-green-600',
       bgColor: 'bg-green-50'
     },

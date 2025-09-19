@@ -12,6 +12,7 @@ import { PharmacyDashboard } from './components/PharmacyDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { VideoConsultationDoctor } from './components/VideoConsultationDoctor';
+import { DoctorSelection } from './components/DoctorSelection';
 
 export type Language = 'en' | 'hi' | 'pa';
 export type UserType = 'patient' | 'doctor' | 'pharmacy' | 'admin';
@@ -110,6 +111,8 @@ export default function App() {
         return <PharmacyDashboard {...commonProps} />;
       case 'admin-dashboard':
         return <AdminDashboard {...commonProps} />;
+      case 'doctor-selection':
+        return <DoctorSelection {...commonProps} />;
       default:
         return <Splash {...commonProps} />;
     }
