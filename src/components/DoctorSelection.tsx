@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Video } from 'lucide-react';
-import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Language } from '../App';
 import toast from 'react-hot-toast';
@@ -134,9 +133,9 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       <div className="bg-white shadow-sm p-4 sticky top-0 z-10">
         <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" onClick={() => navigateTo('patient-dashboard')}>
+          <button className="p-2 rounded-md hover:bg-gray-100" onClick={() => navigateTo('patient-dashboard')}>
             <ArrowLeft className="w-5 h-5" />
-          </Button>
+          </button>
           <h1 className="text-lg font-medium text-gray-800">{t.title}</h1>
         </div>
       </div>
@@ -148,13 +147,13 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
               <h3 className="font-bold text-red-700">{t.emergency} Consultation</h3>
               <p className="text-sm text-red-600">Connect to a doctor instantly.</p>
             </div>
-            <Button 
-              className="bg-red-500 hover:bg-red-600 text-white"
+            <button 
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 bg-red-500 hover:bg-red-600 text-white"
               onClick={handleEmergencyCall}
             >
               <Video className="w-4 h-4 mr-2" />
               {t.emergency}
-            </Button>
+            </button>
           </div>
         </Card>
 
@@ -189,21 +188,20 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                             <div className="flex flex-wrap gap-2">
                                 {doctor.availableSlots.map(slot => {
                                     const isSelected = doctorSelection?.date === dateOpt.value && doctorSelection?.slot === slot;
+                                    // ** STYLE FIX IS HERE **
+                                    const slotStyle = isSelected
+                                      ? { backgroundColor: '#22c55e', color: 'white', borderColor: '#22c55e' }
+                                      : { backgroundColor: 'white', color: '#1f2937', borderColor: '#d1d5db' };
+
                                     return (
-                                        <Button 
+                                        <button 
                                             key={slot}
-                                            size="sm"
-                                            className={`
-                                                border transition-colors
-                                                ${isSelected 
-                                                    ? 'bg-green-500 text-white border-green-500 hover:bg-green-600' 
-                                                    : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'
-                                                }
-                                            `}
+                                            className="h-9 px-3 rounded-md text-sm font-medium border transition-colors"
+                                            style={slotStyle}
                                             onClick={() => handleSelect(index, dateOpt.value, slot)}
                                         >
                                             {slot}
-                                        </Button>
+                                        </button>
                                     );
                                 })}
                             </div>
@@ -217,19 +215,18 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                     <p className="text-xs text-gray-500">{t.fees}</p>
                     <p className="font-bold text-lg text-gray-800">₹{doctor.fees}</p>
                   </div>
-                  <Button
+                  <button
                     disabled={!doctorSelection}
                     onClick={() => handleBooking(index)}
-                    className={`
-                      border transition-colors
-                      ${ doctorSelection
-                        ? 'bg-green-500 text-white border-green-500 hover:bg-green-600'
-                        : 'bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed'
-                      }
-                    `}
+                    className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium border transition-colors"
+                    // ** STYLE FIX IS HERE **
+                    style={doctorSelection
+                        ? { backgroundColor: '#22c55e', color: 'white', borderColor: '#22c55e' }
+                        : { backgroundColor: '#e5e7eb', color: '#9ca3af', borderColor: '#d1d5db', cursor: 'not-allowed' }
+                    }
                   >
                     {t.bookAppointment}
-                  </Button>
+                  </button>
                 </div>
               </Card>
             );
