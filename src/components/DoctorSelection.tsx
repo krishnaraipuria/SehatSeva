@@ -55,7 +55,7 @@ const translations = {
       ortho: 'ਆਰਥੋਪੀਡਿਕ ਸਰਜਨ',
       cardio: 'ਦਿਲ ਦਾ ਮਾਹਰ',
     },
-    toastSuccess: (slot: string, date: string) => `${date} ਨੂੰ ${slot} ਲਈ ਮੁਲਾਕਾਤ ਬੁੱਕ ਹੋ ਗਈ!`,
+    toastSuccess: (slot: string, date: string) => `${date} ਨੂੰ ${slot} ਲਈ ਮੁਲਾਕਾਤ ਸਫਲਤਾਪੂਰਵਕ ਬੁੱਕ ਹੋ ਗਈ!`,
     today: 'ਅੱਜ',
     tomorrow: 'ਕੱਲ',
   }
@@ -128,7 +128,15 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
     const currentSelection = selection[doctorIndex];
     if (!currentSelection) return;
     
+    // 1. Show success toast. Make sure <Toaster /> is in your App.tsx
     toast.success(t.toastSuccess(currentSelection.slot, currentSelection.date));
+
+    // 2. Clear the selection to provide visual feedback that the booking is complete.
+    // This will make the button white again.
+    setSelection(prev => ({
+      ...prev,
+      [doctorIndex]: null
+    }));
   };
   
   const handleEmergencyCall = () => {
