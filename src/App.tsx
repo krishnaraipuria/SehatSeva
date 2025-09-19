@@ -12,6 +12,7 @@ import { PharmacyDashboard } from './components/PharmacyDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { VideoConsultationDoctor } from './components/VideoConsultationDoctor';
+import { DoctorSelection } from './components/DoctorSelection';
 
 export type Language = 'en' | 'hi' | 'pa';
 export type UserType = 'patient' | 'doctor' | 'pharmacy' | 'admin';
@@ -47,8 +48,8 @@ export default function App() {
       isLoggedIn: true, 
       userType,
       currentScreen: userType === 'patient' ? 'patient-dashboard' : 
-                    userType === 'doctor' ? 'doctor-dashboard' :
-                    userType === 'pharmacy' ? 'pharmacy-dashboard' : 'admin-dashboard'
+                     userType === 'doctor' ? 'doctor-dashboard' :
+                     userType === 'pharmacy' ? 'pharmacy-dashboard' : 'admin-dashboard'
     }));
   };
 
@@ -79,39 +80,48 @@ export default function App() {
     const commonProps = {
       navigateTo,
       language: appState.language,
-      setLanguage,
-      login,
-      logout,
-      isOnline: appState.isOnline
+      // Removed setLanguage, login, logout from commonProps as they are not needed by all components
+      // We can pass them specifically where needed to make it cleaner
     };
 
     switch (appState.currentScreen) {
       case 'splash':
-        return <Splash {...commonProps} />;
+        return <Splash navigateTo={navigateTo} />;
       case 'onboarding':
-        return <Onboarding {...commonProps} />;
+        return <Onboarding navigateTo={navigateTo} setLanguage={setLanguage} />;
       case 'login':
-        return <PatientLogin {...commonProps} />;
+        return <PatientLogin navigateTo={navigateTo} login={login} language={appState.language} />;
+      
+      // Patient Screens
       case 'patient-dashboard':
-        return <PatientDashboard {...commonProps} />;
-      case 'video-consultation-doctor':
-        return <VideoConsultationDoctor {...commonProps} />;
+        return <PatientDashboard {...commonProps} logout={logout} isOnline={appState.isOnline} />;
+      
+      // 2. UPDATED: 'video-consultation' now shows the doctor list
       case 'video-consultation':
-        return <VideoConsultation {...commonProps} />;
+        return <DoctorSelection {...commonProps} />;
+      
+      // 3. ADDED: New route for the actual video call screen
+      case 'video-call-patient':
+        return <VideoConsultation {...commonProps} isOnline={appState.isOnline} />;
+        
       case 'health-records':
         return <HealthRecords {...commonProps} />;
       case 'medicine-availability':
         return <MedicineAvailability {...commonProps} />;
       case 'symptom-checker':
         return <SymptomChecker {...commonProps} />;
+
+      // Other User Dashboards
       case 'doctor-dashboard':
-        return <DoctorDashboard {...commonProps} />;
+        return <DoctorDashboard {...commonProps} logout={logout} isOnline={appState.isOnline} />;
+      case 'video-consultation-doctor':
+        return <VideoConsultationDoctor {...commonProps} isOnline={appState.isOnline} />;
       case 'pharmacy-dashboard':
-        return <PharmacyDashboard {...commonProps} />;
+        return <PharmacyDashboard {...commonProps} logout={logout} isOnline={appState.isOnline} />;
       case 'admin-dashboard':
-        return <AdminDashboard {...commonProps} />;
+        return <AdminDashboard {...commonProps} logout={logout} isOnline={appState.isOnline} />;
       default:
-        return <Splash {...commonProps} />;
+        return <Splash navigateTo={navigateTo} />;
     }
   };
 
