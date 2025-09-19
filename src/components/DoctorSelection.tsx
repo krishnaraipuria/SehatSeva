@@ -91,7 +91,6 @@ const doctors = [
   },
 ];
 
-// --- Helper for dates ---
 const today = new Date();
 const tomorrow = new Date(today);
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -104,22 +103,17 @@ const dateOptions = [
     { labelKey: 'today', value: formatDate(today) },
     { labelKey: 'tomorrow', value: formatDate(tomorrow) }
 ];
-// -----------------------
 
 export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) {
   const t = translations[language];
-
-  // State now stores selected date and slot for each doctor
   const [selection, setSelection] = useState<{ [key: number]: { date: string, slot: string } | null }>({});
 
   const handleSelect = (doctorIndex: number, date: string, slot: string) => {
     setSelection(prev => {
       const currentSelection = prev[doctorIndex];
-      // If the same slot is clicked again, deselect it
       if (currentSelection?.date === date && currentSelection?.slot === slot) {
         return { ...prev, [doctorIndex]: null };
       }
-      // Otherwise, set the new selection
       return { ...prev, [doctorIndex]: { date, slot } };
     });
   };
@@ -129,11 +123,7 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
     if (!currentSelection) return;
     
     toast.success(t.toastSuccess(currentSelection.slot, currentSelection.date));
-
-    setSelection(prev => ({
-      ...prev,
-      [doctorIndex]: null
-    }));
+    setSelection(prev => ({ ...prev, [doctorIndex]: null }));
   };
   
   const handleEmergencyCall = () => {
@@ -190,8 +180,6 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
 
                 <div className="mt-4 border-t pt-3">
                   <h4 className="text-sm font-semibold text-gray-700 mb-3">{t.availableSlots}</h4>
-
-                  {/* Date Selection */}
                   <div className="space-y-3">
                     {dateOptions.map(dateOpt => (
                         <div key={dateOpt.value}>
@@ -204,10 +192,9 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                                     return (
                                         <Button 
                                             key={slot}
-                                            variant="outline"
                                             size="sm"
                                             className={`
-                                                transition-colors
+                                                border transition-colors
                                                 ${isSelected 
                                                     ? 'bg-green-500 text-white border-green-500 hover:bg-green-600' 
                                                     : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'
@@ -231,14 +218,15 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                     <p className="font-bold text-lg text-gray-800">₹{doctor.fees}</p>
                   </div>
                   <Button
-                    variant="outline"
                     disabled={!doctorSelection}
                     onClick={() => handleBooking(index)}
-                    className={`transition-colors ${
-                        doctorSelection
-                        ? 'bg-green-500 text-white border-green-500 hover:bg-green-600' // Enabled styles
-                        : 'bg-gray-200 text-gray-400 border-gray-200' // Disabled styles
-                    }`}
+                    className={`
+                      border transition-colors
+                      ${ doctorSelection
+                        ? 'bg-green-500 text-white border-green-500 hover:bg-green-600'
+                        : 'bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed'
+                      }
+                    `}
                   >
                     {t.bookAppointment}
                   </Button>
