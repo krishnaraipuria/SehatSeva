@@ -140,7 +140,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
 
     
     const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // !!! IMPORTANT
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
     
     const conversationHistory = messages.map(msg => ({
       role: msg.sender === 'bot' ? 'model' : 'user',
