@@ -28,7 +28,6 @@ const translations = {
   hi: {
     title: 'परामर्श बुक करें',
     experience: 'साल का अनुभव',
-    fees: 'परामर्श शुल्क',
     bookAppointment: 'अपॉइंटमेंट बुक करें',
     emergency: 'आपातकालीन',
     availableSlots: 'उपलब्ध स्लॉट',
@@ -44,7 +43,6 @@ const translations = {
   pa: {
     title: 'ਸਲਾਹ ਬੁੱਕ ਕਰੋ',
     experience: 'ਸਾਲ ਦਾ ਤਜਰਬਾ',
-    fees: 'ਸਲਾਹ ਫੀਸ',
     bookAppointment: 'ਮੁਲਾਕਾਤ ਬੁੱਕ ਕਰੋ',
     emergency: 'ਐਮਰਜੈਂਸੀ',
     availableSlots: 'ਉਪਲਬਧ ਸਲਾਟ',
@@ -184,7 +182,6 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                             <div className="flex flex-wrap gap-2">
                                 {doctor.availableSlots.map(slot => {
                                     const isSelected = doctorSelection?.date === dateOpt.value && doctorSelection?.slot === slot;
-                                    // ** STYLE FIX IS HERE **
                                     const slotStyle = isSelected
                                       ? { backgroundColor: '#22c55e', color: 'white', borderColor: '#22c55e' }
                                       : { backgroundColor: 'white', color: '#1f2937', borderColor: '#d1d5db' };
@@ -206,16 +203,12 @@ export function DoctorSelection({ navigateTo, language }: DoctorSelectionProps) 
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between border-t pt-3">
-                  <div>
-                    <p className="text-xs text-gray-500">{t.fees}</p>
-                    <p className="font-bold text-lg text-gray-800">₹{doctor.fees}</p>
-                  </div>
+                {/* ---  --- */}
+                <div className="mt-4 flex justify-end border-t pt-3">
                   <button
                     disabled={!doctorSelection}
                     onClick={() => handleBooking(index)}
                     className="h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium border transition-colors"
-                    // ** STYLE FIX IS HERE **
                     style={doctorSelection
                         ? { backgroundColor: '#22c55e', color: 'white', borderColor: '#22c55e' }
                         : { backgroundColor: '#e5e7eb', color: '#9ca3af', borderColor: '#d1d5db', cursor: 'not-allowed' }
