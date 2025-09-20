@@ -13,7 +13,6 @@ const translations = {
   en: {
     title: 'Book a Consultation',
     experience: 'years of experience',
-    fees: 'Consultation Fees',
     bookAppointment: 'Book Appointment',
     emergency: 'Emergency',
     availableSlots: 'Available Slots',
@@ -66,7 +65,6 @@ const doctors = [
     specialityKey: 'gp',
     role: null,
     experience: 12,
-    fees: 300,
     image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     availableSlots: ['04:00 PM', '04:30 PM', '05:00 PM']
   },
@@ -75,7 +73,6 @@ const doctors = [
     specialityKey: 'ortho',
     role: 'Surgeon',
     experience: 15,
-    fees: 500,
     image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     availableSlots: ['02:00 PM', '02:30 PM', '03:30 PM', '05:00 PM']
   },
@@ -84,7 +81,6 @@ const doctors = [
     specialityKey: 'cardio',
     role: null,
     experience: 20,
-    fees: 600,
     image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     availableSlots: ['06:00 PM', '06:30 PM', '07:00 PM']
   },

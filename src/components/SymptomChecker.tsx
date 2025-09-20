@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // useEffect aur useRef ko import karein
 import { ArrowLeft, MessageSquare, Send, Bot, User, AlertTriangle, Phone } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -19,14 +19,16 @@ const translations = {
     emergency: 'Emergency',
     callDoctor: 'Call Doctor',
     bookConsultation: 'Book Consultation',
-    disclaimer: 'This is not a substitute for professional medical advice',
+    disclaimer: 'This is not a substitute for professional medical advice. Always consult a doctor.',
     commonSymptoms: 'Common Symptoms',
     fever: 'Fever',
     headache: 'Headache',
     cough: 'Cough',
     bodyPain: 'Body Pain',
     nausea: 'Nausea',
-    fatigue: 'Fatigue'
+    fatigue: 'Fatigue',
+    botTyping: 'Bot is typing...', 
+    apiError: 'Sorry, I am unable to respond at the moment. Please try again later.'
   },
   hi: {
     symptomChecker: 'AI लक्षण जांचकर्ता',
@@ -35,14 +37,16 @@ const translations = {
     emergency: 'आपातकाल',
     callDoctor: 'डॉक्टर को कॉल करें',
     bookConsultation: 'परामर्श बुक करें',
-    disclaimer: 'यह पेशेवर चिकित्सा सलाह का विकल्प नहीं है',
+    disclaimer: 'यह पेशेवर चिकित्सा सलाह का विकल्प नहीं है। हमेशा डॉक्टर से सलाह लें।',
     commonSymptoms: 'आम लक्षण',
     fever: 'बुखार',
     headache: 'सिरदर्द',
     cough: 'खांसी',
     bodyPain: 'शरीर दर्द',
     nausea: 'मतली',
-    fatigue: 'थकान'
+    fatigue: 'थकान',
+    botTyping: 'बॉट लिख रहा है...',
+    apiError: 'क्षमा करें, मैं इस समय जवाब देने में असमर्थ हूं। कृपया बाद में दोबारा प्रयास करें।'
   },
   pa: {
     symptomChecker: 'AI ਲੱਛਣ ਜਾਂਚਕਰਤਾ',
@@ -51,14 +55,16 @@ const translations = {
     emergency: 'ਐਮਰਜੈਂਸੀ',
     callDoctor: 'ਡਾਕਟਰ ਨੂੰ ਕਾਲ ਕਰੋ',
     bookConsultation: 'ਸਲਾਹ ਬੁੱਕ ਕਰੋ',
-    disclaimer: 'ਇਹ ਪੇਸ਼ੇਵਰ ਮੈਡੀਕਲ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ',
+    disclaimer: 'ਇਹ ਪੇਸ਼ੇਵਰ ਮੈਡੀਕਲ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ। ਹਮੇਸ਼ਾ ਡਾਕਟਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।',
     commonSymptoms: 'ਆਮ ਲੱਛਣ',
     fever: 'ਬੁਖਾਰ',
     headache: 'ਸਿਰ ਦਰਦ',
     cough: 'ਖੰਘ',
     bodyPain: 'ਸਰੀਰ ਦਰਦ',
     nausea: 'ਕੱਚ',
-    fatigue: 'ਥਕਾਵਟ'
+    fatigue: 'ਥਕਾਵਟ',
+    botTyping: 'ਬੋਟ ਟਾਈਪ ਕਰ ਰਿਹਾ ਹੈ...',
+    apiError: 'ਮੁਆਫ ਕਰਨਾ, ਮੈਂ ਇਸ ਸਮੇਂ ਜਵਾਬ ਦੇਣ ਤੋਂ ਅਸਮਰੱਥ ਹਾਂ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।'
   }
 };
 
@@ -67,7 +73,6 @@ interface Message {
   text: string;
   sender: 'user' | 'bot';
   timestamp: Date;
-  suggestions?: string[];
 }
 
 const commonSymptoms = [
@@ -79,48 +84,48 @@ const commonSymptoms = [
   { en: 'Fatigue', hi: 'थकान', pa: 'ਥਕਾਵਟ' }
 ];
 
-const botResponses = {
-  en: {
-    greeting: "Hello! I'm your AI health assistant. Please describe your symptoms and I'll help you understand what might be causing them.",
-    fever: "Fever can be a sign of infection. How long have you had the fever? Any other symptoms like chills, headache, or body aches?",
-    headache: "Headaches can have various causes. Is it a dull ache or sharp pain? Any nausea or sensitivity to light?",
-    cough: "A cough can be due to various reasons. Is it dry or with phlegm? Any fever or chest pain?",
-    general: "Based on your symptoms, I recommend consulting with a healthcare professional for proper diagnosis and treatment.",
-    emergency: "⚠️ If you're experiencing severe symptoms, chest pain, difficulty breathing, or any emergency, please call emergency services immediately!"
-  },
-  hi: {
-    greeting: "नमस्ते! मैं आपका AI स्वास्थ्य सहायक हूँ। कृपया अपने लक्षणों का वर्णन करें और मैं आपको समझाऊंगा कि इसका कारण क्या हो सकता है।",
-    fever: "बुखार संक्रमण का संकेत हो सकता है। आपको कितने समय से बुखार है? कोई अन्य लक्षण जैसे ठंड लगना, सिरदर्द, या शरीर में दर्द?",
-    headache: "सिरदर्द के कई कारण हो सकते हैं। क्या यह सुस्त दर्द है या तेज दर्द? कोई मतली या प्रकाश संवेदनशीलता?",
-    cough: "खांसी के कई कारण हो सकते हैं। क्या यह सूखी खांसी है या कफ के साथ? कोई बुखार या छाती में दर्द?",
-    general: "आपके लक्षणों के आधार पर, मैं उचित निदान और उपचार के लिए स्वास्थ्य पेशेवर से सलाह लेने की सिफारिश करता हूं।",
-    emergency: "⚠️ यदि आप गंभीर लक्षण, छाती में दर्द, सांस लेने में कठिनाई, या कोई आपातकाल का अनुभव कर रहे हैं, तो कृपया तुरंत आपातकालीन सेवाओं को कॉल करें!"
-  },
-  pa: {
-    greeting: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ AI ਸਿਹਤ ਸਹਾਇਕ ਹਾਂ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਲੱਛਣਾਂ ਦਾ ਵਰਣਨ ਕਰੋ ਅਤੇ ਮੈਂ ਤੁਹਾਨੂੰ ਸਮਝਾਵਾਂਗਾ ਕਿ ਇਸਦਾ ਕਾਰਨ ਕੀ ਹੋ ਸਕਦਾ ਹੈ।",
-    fever: "ਬੁਖਾਰ ਇਨਫੈਕਸ਼ਨ ਦਾ ਸੰਕੇਤ ਹੋ ਸਕਦਾ ਹੈ। ਤੁਹਾਨੂੰ ਕਿੰਨੇ ਸਮੇਂ ਤੋਂ ਬੁਖਾਰ ਹੈ? ਕੋਈ ਹੋਰ ਲੱਛਣ ਜਿਵੇਂ ਠੰਡ ਲੱਗਣਾ, ਸਿਰ ਦਰਦ, ਜਾਂ ਸਰੀਰ ਵਿੱਚ ਦਰਦ?",
-    headache: "ਸਿਰ ਦਰਦ ਦੇ ਕਈ ਕਾਰਨ ਹੋ ਸਕਦੇ ਹਨ। ਕੀ ਇਹ ਮੰਦਾ ਦਰਦ ਹੈ ਜਾਂ ਤਿੱਖਾ ਦਰਦ? ਕੋਈ ਕੱਚ ਜਾਂ ਰੋਸ਼ਨੀ ਪ੍ਰਤੀ ਸੰਵੇਦਨਸ਼ੀਲਤਾ?",
-    cough: "ਖੰਘ ਦੇ ਕਈ ਕਾਰਨ ਹੋ ਸਕਦੇ ਹਨ। ਕੀ ਇਹ ਸੁੱਕੀ ਖੰਘ ਹੈ ਜਾਂ ਕਫ਼ ਦੇ ਨਾਲ? ਕੋਈ ਬੁਖਾਰ ਜਾਂ ਛਾਤੀ ਵਿੱਚ ਦਰਦ?",
-    general: "ਤੁਹਾਡੇ ਲੱਛਣਾਂ ਦੇ ਆਧਾਰ ਤੇ, ਮੈਂ ਸਹੀ ਨਿਦਾਨ ਅਤੇ ਇਲਾਜ ਲਈ ਸਿਹਤ ਪੇਸ਼ੇਵਰ ਨਾਲ ਸਲਾਹ ਲੈਣ ਦੀ ਸਿਫਾਰਸ਼ ਕਰਦਾ ਹਾਂ।",
-    emergency: "⚠️ ਜੇ ਤੁਸੀਂ ਗੰਭੀਰ ਲੱਛਣ, ਛਾਤੀ ਵਿੱਚ ਦਰਦ, ਸਾਹ ਲੈਣ ਵਿੱਚ ਮੁਸ਼ਕਲ, ਜਾਂ ਕੋਈ ਐਮਰਜੈਂਸੀ ਦਾ ਅਨੁਭਵ ਕਰ ਰਹੇ ਹੋ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਤੁਰੰਤ ਐਮਰਜੈਂਸੀ ਸੇਵਾਵਾਂ ਨੂੰ ਕਾਲ ਕਰੋ!"
-  }
-};
+
+const getGreeting = (lang: Language) => ({
+    en: "Hello! I'm your AI health assistant. Please describe your symptoms. Remember, this is for informational purposes only. Always consult a doctor for medical advice.",
+    hi: "नमस्ते! मैं आपका AI स्वास्थ्य सहायक हूँ। कृपया अपने लक्षणों का वर्णन करें। याद रखें, यह केवल सूचना के उद्देश्यों के लिए है। चिकित्सीय सलाह के लिए हमेशा डॉक्टर से सलाह लें।",
+    pa: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ AI ਸਿਹਤ ਸਹਾਇਕ ਹਾਂ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਲੱਛਣਾਂ ਦਾ ਵਰਣਨ ਕਰੋ। ਯਾਦ ਰੱਖੋ, ਇਹ ਸਿਰਫ ਜਾਣਕਾਰੀ ਦੇ ਉਦੇਸ਼ਾਂ ਲਈ ਹੈ। ਡਾਕਟਰੀ ਸਲਾਹ ਲਈ ਹਮੇਸ਼ਾ ਡਾਕਟਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+}[lang]);
 
 export function SymptomChecker({ navigateTo, language, isOnline }: SymptomCheckerProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: botResponses[language].greeting,
+      text: getGreeting(language),
       sender: 'bot',
       timestamp: new Date(),
-      suggestions: commonSymptoms.map(s => s[language])
     }
   ]);
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
   const t = translations[language];
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const sendMessage = (text: string) => {
-    if (!text.trim()) return;
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
+
+  useEffect(() => {
+    setMessages([{
+      id: '1',
+      text: getGreeting(language),
+      sender: 'bot',
+      timestamp: new Date(),
+    }]);
+  }, [language]);
+
+
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -131,31 +136,72 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
 
     setMessages(prev => [...prev, userMessage]);
     setInputText('');
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      let botResponse = botResponses[language].general;
-      const lowerText = text.toLowerCase();
-      
-      if (lowerText.includes('fever') || lowerText.includes('बुखार') || lowerText.includes('ਬੁਖਾਰ')) {
-        botResponse = botResponses[language].fever;
-      } else if (lowerText.includes('headache') || lowerText.includes('सिरदर्द') || lowerText.includes('ਸਿਰ ਦਰਦ')) {
-        botResponse = botResponses[language].headache;
-      } else if (lowerText.includes('cough') || lowerText.includes('खांसी') || lowerText.includes('ਖੰਘ')) {
-        botResponse = botResponses[language].cough;
+    
+    const API_KEY = 'AIzaSyBRWvX4h10_DUKvewGJKbsGqC3GQHhkfdo'; // !!! IMPORTANT
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+    
+    const conversationHistory = messages.map(msg => ({
+      role: msg.sender === 'bot' ? 'model' : 'user',
+      parts: [{ text: msg.text }]
+    }));
+
+    const prompt = `You are a helpful and empathetic AI health assistant. Your name is 'Sehat Saathi'. 
+    Your primary goal is to listen to the user's symptoms and provide preliminary information.
+    You must always include the following disclaimer in every response: 'This is not medical advice. Please consult a doctor for a proper diagnosis.'
+    Keep your responses concise, easy to understand, and limited to 2-3 sentences. 
+    Respond in the language code: '${language}'.
+    Current user query is: "${text}"`;
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+              ...conversationHistory,
+              {
+                role: 'user',
+                parts: [{ text: prompt }] 
+              }
+          ]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+
+      const data = await response.json();
+      
+
+      const botResponseText = data.candidates[0].content.parts[0].text;
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: botResponse,
+        text: botResponseText,
         sender: 'bot',
-        timestamp: new Date(),
-        suggestions: ['Book Consultation', 'Call Doctor', 'Emergency']
+        timestamp: new Date()
       };
-
       setMessages(prev => [...prev, botMessage]);
-    }, 1000);
+
+    } catch (error) {
+      console.error("Error fetching from Gemini API:", error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: t.apiError,
+        sender: 'bot',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
 
   const handleSymptomClick = (symptom: string) => {
     sendMessage(symptom);
@@ -212,22 +258,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
                   </div>
                 )}
                 <div className="flex-1">
-                  <p className="text-sm">{message.text}</p>
-                  {message.suggestions && (
-                    <div className="mt-2 space-y-1">
-                      {message.suggestions.map((suggestion, idx) => (
-                        <Button
-                          key={idx}
-                          variant="outline"
-                          size="sm"
-                          className="mr-2 mb-1"
-                          onClick={() => handleSymptomClick(suggestion)}
-                        >
-                          {suggestion}
-                        </Button>
-                      ))}
-                    </div>
-                  )}
+                  <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>{message.text}</p>
                 </div>
                 {message.sender === 'user' && (
                   <div className="w-6 h-6 bg-green-700 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -238,10 +269,25 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
             </div>
           </div>
         ))}
+
+        {/* <<< KADAM 3: Loading Indicator Dikhayein */}
+        {isLoading && (
+          <div className="flex justify-start">
+             <div className="max-w-xs lg:max-w-md p-3 rounded-lg bg-white text-gray-800 shadow-sm">
+                 <div className="flex items-center space-x-2">
+                     <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                         <Bot className="w-3 h-3 text-blue-600" />
+                     </div>
+                     <p className="text-sm italic">{t.botTyping}</p>
+                 </div>
+             </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Quick Symptoms */}
-      {messages.length === 1 && (
+      {messages.length <= 2 && (
         <div className="p-4 space-y-3">
           <h3 className="text-sm font-medium text-gray-700">{t.commonSymptoms}</h3>
           <div className="flex flex-wrap gap-2">
@@ -268,10 +314,11 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage(inputText)}
             className="flex-1"
+            disabled={isLoading} // Loading ke time input disable karein
           />
           <Button 
             onClick={() => sendMessage(inputText)}
-            disabled={!inputText.trim()}
+            disabled={!inputText.trim() || isLoading} // Loading ke time button disable karein
             className="bg-green-600 hover:bg-green-700"
           >
             <Send className="w-5 h-5" />
