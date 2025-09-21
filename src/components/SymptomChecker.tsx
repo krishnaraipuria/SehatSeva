@@ -101,89 +101,162 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
     }]);
   }, [language]);
 
-  const sendMessage = async (text: string) => {
+  // const sendMessage = async (text: string) => { //
+  //   if (!text.trim() || isLoading) return;
+
+  //   const userMessage: Message = {
+  //     id: Date.now().toString(),
+  //     text,
+  //     sender: 'user',
+  //     timestamp: new Date()
+  //   };
+    
+  //   const updatedMessages = [...messages, userMessage];
+  //   setMessages(updatedMessages);
+  //   setInputText('');
+  //   setIsLoading(true);
+
+  //   const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  //   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    
+  //   const systemInstruction = {
+  //     role: 'user',
+  //     parts: [{ 
+  //       text: `You are a helpful and empathetic AI health assistant named 'Sehat Saathi'. Your primary goal is to provide preliminary information based on user's symptoms. ALWAYS include this disclaimer in every response: 'This is not medical advice. Please consult a doctor for a proper diagnosis.' Keep responses concise (2-3 sentences). Respond ONLY in the language code: '${language}'.`
+  //     }]
+  //   };
+
+  //   const modelResponsePriming = {
+  //       role: 'model',
+  //       parts: [{
+  //           text: `Okay, I understand. I will act as Sehat Saathi and follow all instructions. I will reply in language code '${language}'.`
+  //       }]
+  //   }
+
+  //   const conversationHistory = updatedMessages.map(msg => ({
+  //     role: msg.sender === 'bot' ? 'model' : 'user',
+  //     parts: [{ text: msg.text }]
+  //   }));
+
+  //   try {
+  //     const response = await fetch(API_URL, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         contents: [
+  //           systemInstruction,
+  //           modelResponsePriming,
+  //           ...conversationHistory
+  //         ]
+  //       })
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Network response was not ok. Status: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+      
+  //     if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content) {
+  //         throw new Error('Invalid response structure from API');
+  //     }
+      
+  //     const botResponseText = data.candidates[0].content.parts[0].text;
+
+  //     const botMessage: Message = {
+  //       id: (Date.now() + 1).toString(),
+  //       text: botResponseText,
+  //       sender: 'bot',
+  //       timestamp: new Date()
+  //     };
+  //     setMessages(prev => [...prev, botMessage]);
+
+  //   } catch (error) {
+  //     console.error("Error fetching from Gemini API:", error);
+  //     const errorMessage: Message = {
+  //       id: (Date.now() + 1).toString(),
+  //       text: t.apiError,
+  //       sender: 'bot',
+  //       timestamp: new Date()
+  //     };
+  //     setMessages(prev => [...prev, errorMessage]);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };//
+const sendMessage = async (text: string) => {
     if (!text.trim() || isLoading) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
-      text,
-      sender: 'user',
-      timestamp: new Date()
+        id: Date.now().toString(),
+        text,
+        sender: 'user',
+        timestamp: new Date()
     };
     
     const updatedMessages = [...messages, userMessage];
+    
     setMessages(updatedMessages);
     setInputText('');
     setIsLoading(true);
 
-    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+    console.log("Using OpenRouter API Key:", API_KEY ? "Loaded" : "NOT LOADED OR UNDEFINED");
+
+    const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
     
-    const systemInstruction = {
-      role: 'user',
-      parts: [{ 
-        text: `You are a helpful and empathetic AI health assistant named 'Sehat Saathi'. Your primary goal is to provide preliminary information based on user's symptoms. ALWAYS include this disclaimer in every response: 'This is not medical advice. Please consult a doctor for a proper diagnosis.' Keep responses concise (2-3 sentences). Respond ONLY in the language code: '${language}'.`
-      }]
-    };
+    const systemInstruction = `You are a helpful and empathetic AI health assistant... Respond ONLY in the language code: '${language}'.`;
 
-    const modelResponsePriming = {
-        role: 'model',
-        parts: [{
-            text: `Okay, I understand. I will act as Sehat Saathi and follow all instructions. I will reply in language code '${language}'.`
-        }]
-    }
-
-    const conversationHistory = updatedMessages.map(msg => ({
-      role: msg.sender === 'bot' ? 'model' : 'user',
-      parts: [{ text: msg.text }]
+    const apiMessages = updatedMessages.map(msg => ({
+        role: msg.sender === 'bot' ? 'assistant' : 'user',
+        content: msg.text
     }));
 
     try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [
-            systemInstruction,
-            modelResponsePriming,
-            ...conversationHistory
-          ]
-        })
-      });
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
+            },
+            body: JSON.stringify({
+                model: 'google/gemini-flash-1.5',
+                messages: [
+                    { role: 'system', content: systemInstruction },
+                    ...apiMessages
+                ]
+            })
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("API Error Details:", errorData);
+            throw new Error(`Network response was not ok. Status: ${response.status}`);
+        }
 
-      if (!response.ok) {
-        throw new Error(`Network response was not ok. Status: ${response.status}`);
-      }
+        const data = await response.json();
+        const botResponseText = data.choices[0].message.content;
 
-      const data = await response.json();
-      
-      if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content) {
-          throw new Error('Invalid response structure from API');
-      }
-      
-      const botResponseText = data.candidates[0].content.parts[0].text;
-
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: botResponseText,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botMessage]);
+        const botMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: botResponseText,
+            sender: 'bot',
+            timestamp: new Date()
+        };
+        setMessages(prev => [...prev, botMessage]);
 
     } catch (error) {
-      console.error("Error fetching from Gemini API:", error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: t.apiError,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
+        console.error("Error fetching from OpenRouter API:", error);
+        const errorMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: t.apiError,
+            sender: 'bot',
+            timestamp: new Date()
+        };
+        setMessages(prev => [...prev, errorMessage]);
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
+};
 
   const handleSymptomClick = (symptom: string) => {
     sendMessage(symptom);
