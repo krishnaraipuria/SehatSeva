@@ -201,11 +201,16 @@ const sendMessage = async (text: string) => {
     setIsLoading(true);
 
     const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
-    console.log("Using OpenRouter API Key:", API_KEY ? "Loaded" : "NOT LOADED OR UNDEFINED");
-
     const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-    
-    const systemInstruction = `You are a helpful and empathetic AI health assistant... Respond ONLY in the language code: '${language}'.`;
+
+    const systemInstruction = `
+You are 'Sehat Saathi', a helpful and empathetic AI health assistant.
+Your instructions are:
+1.  You MUST respond ONLY in the language specified by the language code: '${language}'. Do not use any other language under any circumstances.
+2.  Keep your responses concise and helpful (2-3 sentences).
+3.  Based on the user's symptoms, provide some preliminary information.
+4.  You MUST end every single response with the following exact disclaimer phrase: "${t.disclaimer}"
+`;
 
     const apiMessages = updatedMessages.map(msg => ({
         role: msg.sender === 'bot' ? 'assistant' : 'user',
@@ -227,6 +232,7 @@ const sendMessage = async (text: string) => {
                 ]
             })
         });
+
         if (!response.ok) {
             const errorData = await response.json();
             console.error("API Error Details:", errorData);
@@ -364,23 +370,23 @@ const sendMessage = async (text: string) => {
         </div>
         
         {/* Action Buttons */}
-        <div className="flex space-x-2 mt-3">
-          <button 
-            className="flex-1 px-3 py-1.5 text-sm border border-gray-300 bg-white rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-            onClick={() => navigateTo('doctor-selection')}
-            disabled={isLoading}
-          >
-            <MessageSquare className="w-4 h-4 mr-1" />
-            {t.bookConsultation}
-          </button>
-          <button 
-            className="flex-1 px-3 py-1.5 text-sm border border-gray-300 bg-white rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-            disabled={isLoading}
-          >
-            <Phone className="w-4 h-4 mr-1" />
-            {t.callDoctor}
-          </button>
-        </div>
+      <div className="flex items-center gap-3 mt-4">
+        <button 
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-green-700 bg-transparent border-2 border-green-600 rounded-lg hover:bg-green-50 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isLoading}
+        >
+          <Phone className="w-4 h-4" />
+          {t.callDoctor}
+        </button>
+        <button 
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          onClick={() => navigateTo('doctor-selection')}
+          disabled={isLoading}
+        >
+          <MessageSquare className="w-4 h-4" />
+          {t.bookConsultation}
+        </button>
+      </div>
       </div>
     </div>
   );
