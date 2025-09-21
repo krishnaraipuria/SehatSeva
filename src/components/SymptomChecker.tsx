@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, MessageSquare, Send, Bot, User, Phone } from 'lucide-react';
-// import { Button } from './ui/button'; // ERROR: Removed, as this is a custom component not available here.
-// import { Input } from './ui/input'; // ERROR: Removed, as this is a custom component not available here.
 import { Language } from '../App';
 
-// NOTE: Since the custom Button and Input components from './ui/*' are not available,
-// they have been replaced with standard <button> and <input> elements.
-// Tailwind CSS classes are used to replicate the original styling as closely as possible.
 
 interface SymptomCheckerProps {
   navigateTo: (screen: string) => void;
