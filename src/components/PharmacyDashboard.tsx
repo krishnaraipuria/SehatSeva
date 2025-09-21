@@ -25,6 +25,7 @@ const translations = {
     inventory: 'Inventory Management',
     stockStatus: 'Stock Status',
     addMedicine: 'Add Medicine',
+    addMedicineModalTitle: 'Add Medicine(Better options coming soon)',
     updateStock: 'Update Stock',
     searchMedicine: 'Search medicines...',
     inStock: 'In Stock',
@@ -65,6 +66,7 @@ const translations = {
     inventory: 'इन्वेंटरी प्रबंधन',
     stockStatus: 'स्टॉक स्थिति',
     addMedicine: 'दवा जोड़ें',
+    addMedicineModalTitle: 'दवा जोड़ें(बेहतर विकल्प जल्द ही आ रहे हैं)',
     updateStock: 'स्टॉक अपडेट करें',
     searchMedicine: 'दवाएं खोजें...',
     inStock: 'स्टॉक में',
@@ -105,6 +107,7 @@ const translations = {
     inventory: 'ਇਨਵੈਂਟਰੀ ਪ੍ਰਬੰਧਨ',
     stockStatus: 'ਸਟਾਕ ਸਥਿਤੀ',
     addMedicine: 'ਦਵਾਈ ਜੋੜੋ',
+    addMedicineModalTitle: 'ਦਵਾਈ ਸ਼ਾਮਲ ਕਰੋ(ਬਿਹਤਰ ਵਿਕਲਪ ਜਲਦੀ ਆ ਰਹੇ ਹਨ)',
     updateStock: 'ਸਟਾਕ ਅਪਡੇਟ ਕਰੋ',
     searchMedicine: 'ਦਵਾਈਆਂ ਖੋਜੋ...',
     inStock: 'ਸਟਾਕ ਵਿੱਚ',
@@ -970,7 +973,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
       {/* Add Medicine Modal */}
       <Modal isOpen={addMedicineOpen} onClose={closeAddMedicine}>
         <div className="p-4" style={{ maxHeight: '80vh' }}>
-          <h2 className="text-lg font-semibold mb-3">{t.addMedicine}</h2>
+          <h2 className="text-lg font-semibold mb-3">{t.addMedicineModalTitle}</h2>
           <div className="space-y-3 mb-4 overflow-y-auto" style={{ maxHeight: 'calc(80vh - 120px)' }}>
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">{t.medicineName}</label>
