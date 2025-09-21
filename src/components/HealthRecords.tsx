@@ -3,7 +3,7 @@ import { ArrowLeft, FileText, Download, Upload, Calendar, Activity, Pill, TestTu
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
+
 import { Language } from '../App';
 import toast from 'react-hot-toast';
 
@@ -119,7 +119,6 @@ const mockData = {
 
 export function HealthRecords({ navigateTo, language, isOnline }: HealthRecordsProps) {
   const [activeTab, setActiveTab] = useState('overview');
-  const [showUploadModal, setShowUploadModal] = useState(false);
   const t = translations[language];
 
   const handleDownload = () => {
@@ -167,16 +166,13 @@ For detailed records, please consult your healthcare provider.`;
   };
 
   const handleUpload = () => {
-    setShowUploadModal(true);
-  };
-
-  const handleUploadClick = () => {
-    setShowUploadModal(false);
     toast('Coming soon! File upload feature will be available soon.', {
       icon: '📁',
       duration: 3000,
     });
   };
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -362,27 +358,7 @@ For detailed records, please consult your healthcare provider.`;
         </Tabs>
       </div>
 
-      {/* Upload Modal */}
-      <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
-        <DialogContent className="max-w-sm">
-          <DialogHeader>
-            <DialogTitle>Upload Health Records</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 mb-2">Click to upload files</p>
-              <p className="text-sm text-gray-500">Supported formats: PDF, JPG, PNG</p>
-              <Button 
-                className="mt-4" 
-                onClick={handleUploadClick}
-              >
-                Choose Files
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+
     </div>
   );
 }

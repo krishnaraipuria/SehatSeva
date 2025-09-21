@@ -89,7 +89,10 @@ const mockPharmacies = [
     medicines: [
       { name: 'Paracetamol 500mg', status: 'available', price: '₹25' },
       { name: 'Metformin 500mg', status: 'limited', price: '₹45' },
-      { name: 'Vitamin D3', status: 'available', price: '₹120' }
+      { name: 'Vitamin D3', status: 'available', price: '₹120' },
+      { name: 'Aspirin 75mg', status: 'available', price: '₹35' },
+      { name: 'Omeprazole 20mg', status: 'available', price: '₹65' },
+      { name: 'Cetirizine 10mg', status: 'limited', price: '₹15' }
     ]
   },
   {
@@ -104,7 +107,10 @@ const mockPharmacies = [
     medicines: [
       { name: 'Paracetamol 500mg', status: 'available', price: '₹30' },
       { name: 'Metformin 500mg', status: 'out-of-stock', price: '₹50' },
-      { name: 'Vitamin D3', status: 'available', price: '₹110' }
+      { name: 'Vitamin D3', status: 'available', price: '₹110' },
+      { name: 'Ibuprofen 400mg', status: 'available', price: '₹40' },
+      { name: 'Amoxicillin 250mg', status: 'available', price: '₹80' },
+      { name: 'Losartan 50mg', status: 'limited', price: '₹95' }
     ]
   },
   {
@@ -119,7 +125,134 @@ const mockPharmacies = [
     medicines: [
       { name: 'Paracetamol 500mg', status: 'available', price: '₹20' },
       { name: 'Metformin 500mg', status: 'available', price: '₹40' },
-      { name: 'Vitamin D3', status: 'limited', price: '₹100' }
+      { name: 'Vitamin D3', status: 'limited', price: '₹100' },
+      { name: 'Atorvastatin 10mg', status: 'available', price: '₹85' },
+      { name: 'Pantoprazole 40mg', status: 'available', price: '₹55' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'Sharma Medicos',
+    address: 'Civil Hospital Road, Nabha',
+    distance: '1.8 km',
+    phone: '+91 98765 43213',
+    isOpen: true,
+    openTime: '7:00 AM',
+    closeTime: '11:00 PM',
+    medicines: [
+      { name: 'Insulin Glargine', status: 'available', price: '₹450' },
+      { name: 'Salbutamol Inhaler', status: 'available', price: '₹180' },
+      { name: 'Amlodipine 5mg', status: 'available', price: '₹25' },
+      { name: 'Clopidogrel 75mg', status: 'limited', price: '₹120' },
+      { name: 'Montelukast 10mg', status: 'available', price: '₹95' },
+      { name: 'Levothyroxine 50mcg', status: 'available', price: '₹35' }
+    ]
+  },
+  {
+    id: 5,
+    name: 'Apollo Pharmacy',
+    address: 'GT Road, Nabha',
+    distance: '2.5 km',
+    phone: '+91 98765 43214',
+    isOpen: true,
+    openTime: '24 Hours',
+    closeTime: '24 Hours',
+    medicines: [
+      { name: 'Paracetamol 500mg', status: 'available', price: '₹28' },
+      { name: 'Azithromycin 500mg', status: 'available', price: '₹150' },
+      { name: 'Prednisolone 5mg', status: 'available', price: '₹45' },
+      { name: 'Diclofenac 50mg', status: 'available', price: '₹30' },
+      { name: 'Ranitidine 150mg', status: 'limited', price: '₹25' },
+      { name: 'Calcium Carbonate', status: 'available', price: '₹60' },
+      { name: 'Multivitamin Tablets', status: 'available', price: '₹140' }
+    ]
+  },
+  {
+    id: 6,
+    name: 'Bhatia Medical Hall',
+    address: 'Patiala Road, Nabha',
+    distance: '3.2 km',
+    phone: '+91 98765 43215',
+    isOpen: true,
+    openTime: '8:30 AM',
+    closeTime: '9:30 PM',
+    medicines: [
+      { name: 'Ciprofloxacin 500mg', status: 'available', price: '₹75' },
+      { name: 'Doxycycline 100mg', status: 'available', price: '₹65' },
+      { name: 'Folic Acid 5mg', status: 'available', price: '₹20' },
+      { name: 'Iron Tablets', status: 'limited', price: '₹35' },
+      { name: 'Vitamin B12', status: 'available', price: '₹85' },
+      { name: 'Domperidone 10mg', status: 'available', price: '₹40' }
+    ]
+  },
+  {
+    id: 7,
+    name: 'Mediplus Pharmacy',
+    address: 'Sangrur Road, Nabha',
+    distance: '1.7 km',
+    phone: '+91 98765 43216',
+    isOpen: true,
+    openTime: '9:00 AM',
+    closeTime: '10:00 PM',
+    medicines: [
+      { name: 'Glimepiride 2mg', status: 'available', price: '₹55' },
+      { name: 'Telmisartan 40mg', status: 'available', price: '₹110' },
+      { name: 'Rosuvastatin 10mg', status: 'limited', price: '₹125' },
+      { name: 'Gabapentin 300mg', status: 'available', price: '₹95' },
+      { name: 'Tramadol 50mg', status: 'available', price: '₹45' },
+      { name: 'Sertraline 50mg', status: 'out-of-stock', price: '₹180' }
+    ]
+  },
+  {
+    id: 8,
+    name: 'Health First Pharmacy',
+    address: 'Model Town, Nabha',
+    distance: '2.8 km',
+    phone: '+91 98765 43217',
+    isOpen: false,
+    openTime: '10:00 AM',
+    closeTime: '8:00 PM',
+    medicines: [
+      { name: 'Warfarin 5mg', status: 'available', price: '₹65' },
+      { name: 'Digoxin 0.25mg', status: 'limited', price: '₹35' },
+      { name: 'Furosemide 40mg', status: 'available', price: '₹25' },
+      { name: 'Spironolactone 25mg', status: 'available', price: '₹45' },
+      { name: 'Bisoprolol 5mg', status: 'available', price: '₹75' }
+    ]
+  },
+  {
+    id: 9,
+    name: 'Care Pharmacy',
+    address: 'Fountain Chowk, Nabha',
+    distance: '1.5 km',
+    phone: '+91 98765 43218',
+    isOpen: true,
+    openTime: '8:00 AM',
+    closeTime: '10:30 PM',
+    medicines: [
+      { name: 'Paracetamol 500mg', status: 'available', price: '₹22' },
+      { name: 'Loperamide 2mg', status: 'available', price: '₹30' },
+      { name: 'ORS Sachets', status: 'available', price: '₹15' },
+      { name: 'Zinc Tablets', status: 'available', price: '₹25' },
+      { name: 'Probiotics Capsules', status: 'limited', price: '₹180' },
+      { name: 'Antacid Syrup', status: 'available', price: '₹45' }
+    ]
+  },
+  {
+    id: 10,
+    name: 'Wellness Pharmacy',
+    address: 'Grain Market, Nabha',
+    distance: '3.5 km',
+    phone: '+91 98765 43219',
+    isOpen: true,
+    openTime: '9:00 AM',
+    closeTime: '9:00 PM',
+    medicines: [
+      { name: 'Hydroxychloroquine 200mg', status: 'limited', price: '₹95' },
+      { name: 'Chloroquine 250mg', status: 'available', price: '₹35' },
+      { name: 'Artemether Injection', status: 'available', price: '₹250' },
+      { name: 'Quinine Tablets', status: 'out-of-stock', price: '₹85' },
+      { name: 'Doxycycline 100mg', status: 'available', price: '₹70' }
     ]
   }
 ];
@@ -128,6 +261,8 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
   const [searchQuery, setSearchQuery] = useState('');
   const [showMap, setShowMap] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
+  const [sortBy, setSortBy] = useState('distance'); // 'distance', 'price-low', 'price-high', 'availability'
+  const [showOpenOnly, setShowOpenOnly] = useState(false);
   const t = translations[language];
 
   const handleGetDirections = () => {
@@ -151,14 +286,91 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
     });
   };
 
-  // Filter pharmacies based on search query
-  const filteredPharmacies = mockPharmacies.filter(pharmacy => 
-    pharmacy.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    pharmacy.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    pharmacy.medicines.some(medicine => 
-      medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
+  // Filter and sort pharmacies based on search and filter options
+  const filteredPharmacies = mockPharmacies
+    .filter(pharmacy => {
+      // Filter by open status if showOpenOnly is true
+      if (showOpenOnly && !pharmacy.isOpen) return false;
+
+      // Search filter
+      if (!searchQuery.trim()) return true;
+
+      // Search in medicine names (primary search)
+      const hasMedicine = pharmacy.medicines.some(medicine =>
+        medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      // Also search in pharmacy name and address as secondary
+      const hasPharmacyMatch = pharmacy.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        pharmacy.address.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return hasMedicine || hasPharmacyMatch;
+    })
+    .sort((a, b) => {
+      // Get the relevant medicine for price comparison when searching
+      let aMedicine: { name: string; status: string; price: string; } | undefined = undefined;
+      let bMedicine: { name: string; status: string; price: string; } | undefined = undefined;
+
+      if (searchQuery.trim()) {
+        aMedicine = a.medicines.find(m =>
+          m.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        bMedicine = b.medicines.find(m =>
+          m.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+
+      // Sort based on selected option
+      switch (sortBy) {
+        case 'price-low':
+          if (aMedicine && bMedicine) {
+            const aPrice = parseFloat(aMedicine.price.replace('₹', ''));
+            const bPrice = parseFloat(bMedicine.price.replace('₹', ''));
+            return aPrice - bPrice;
+          }
+          // If no specific medicine, sort by average price of first medicine
+          const aAvgPrice = parseFloat(a.medicines[0]?.price.replace('₹', '') || '0');
+          const bAvgPrice = parseFloat(b.medicines[0]?.price.replace('₹', '') || '0');
+          return aAvgPrice - bAvgPrice;
+
+        case 'price-high':
+          if (aMedicine && bMedicine) {
+            const aPrice = parseFloat(aMedicine.price.replace('₹', ''));
+            const bPrice = parseFloat(bMedicine.price.replace('₹', ''));
+            return bPrice - aPrice;
+          }
+          // If no specific medicine, sort by average price of first medicine
+          const aAvgPriceHigh = parseFloat(a.medicines[0]?.price.replace('₹', '') || '0');
+          const bAvgPriceHigh = parseFloat(b.medicines[0]?.price.replace('₹', '') || '0');
+          return bAvgPriceHigh - aAvgPriceHigh;
+
+        case 'availability':
+          // Prioritize available medicines over out-of-stock
+          if (aMedicine && bMedicine) {
+            if (aMedicine.status === 'available' && bMedicine.status !== 'available') return -1;
+            if (bMedicine.status === 'available' && aMedicine.status !== 'available') return 1;
+            if (aMedicine.status === 'limited' && bMedicine.status === 'out-of-stock') return -1;
+            if (bMedicine.status === 'limited' && aMedicine.status === 'out-of-stock') return 1;
+          }
+          // Then sort by distance
+          const aDistanceAvail = parseFloat(a.distance.replace(' km', ''));
+          const bDistanceAvail = parseFloat(b.distance.replace(' km', ''));
+          return aDistanceAvail - bDistanceAvail;
+
+        case 'distance':
+        default:
+          // If searching for a specific medicine, prioritize pharmacies that have it available
+          if (searchQuery.trim() && aMedicine && bMedicine) {
+            if (aMedicine.status === 'available' && bMedicine.status !== 'available') return -1;
+            if (bMedicine.status === 'available' && aMedicine.status !== 'available') return 1;
+          }
+
+          // Sort by distance (ascending)
+          const aDistance = parseFloat(a.distance.replace(' km', ''));
+          const bDistance = parseFloat(b.distance.replace(' km', ''));
+          return aDistance - bDistance;
+      }
+    });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -192,8 +404,8 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
         {/* Map Header */}
         <div className="bg-white shadow-sm p-4">
           <div className="flex items-center justify-between">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => setShowMap(false)}
             >
@@ -207,7 +419,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
 
         {/* Mock Map */}
         <div className="relative h-96 bg-green-100">
-          <ImageWithFallback 
+          <ImageWithFallback
             src="https://images.unsplash.com/photo-1671108503276-1d3d5ab23a3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaGFybWFjeSUyMG1lZGljaW5lJTIwcnVyYWx8ZW58MXx8fHwxNzU4MTgwNTA0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
             alt="Map View"
             className="w-full h-full object-cover opacity-50"
@@ -248,8 +460,8 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => navigateTo('patient-dashboard')}
             >
@@ -258,14 +470,18 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
             <h1 className="text-lg text-gray-800">{t.medicineAvailability}</h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => setShowMap(true)}
             >
               <MapPin className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setFilterOpen(!filterOpen)}
+            >
               <Filter className="w-5 h-5" />
             </Button>
           </div>
@@ -286,14 +502,14 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
 
         {/* Quick Actions */}
         <div className="flex space-x-3">
-          <Button 
+          <Button
             onClick={() => setShowMap(true)}
             className="flex-1 h-12 bg-green-600 hover:bg-green-700"
           >
             <MapPin className="w-5 h-5 mr-2" />
             {t.viewMap}
           </Button>
-          <Button 
+          <Button
             variant="outline"
             className="flex-1 h-12"
             onClick={handleFindNearest}
@@ -303,10 +519,106 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
           </Button>
         </div>
 
+        {/* Filter Dropdown */}
+        {filterOpen && (
+          <Card className="p-4 bg-white shadow-lg">
+            <h3 className="font-medium text-gray-800 mb-3">Filter & Sort</h3>
+
+            {/* Sort Options */}
+            <div className="space-y-3">
+              <div>
+                <label className="text-sm font-medium text-gray-700 mb-2 block">Sort By</label>
+                <div className="space-y-2">
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="distance"
+                      checked={sortBy === 'distance'}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="text-green-600"
+                    />
+                    <span className="text-sm">Distance (Nearest First)</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="price-low"
+                      checked={sortBy === 'price-low'}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="text-green-600"
+                    />
+                    <span className="text-sm">Price (Low to High)</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="price-high"
+                      checked={sortBy === 'price-high'}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="text-green-600"
+                    />
+                    <span className="text-sm">Price (High to Low)</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="sortBy"
+                      value="availability"
+                      checked={sortBy === 'availability'}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="text-green-600"
+                    />
+                    <span className="text-sm">Availability</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Filter Options */}
+              <div className="border-t pt-3">
+                <label className="text-sm font-medium text-gray-700 mb-2 block">Filter Options</label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={showOpenOnly}
+                    onChange={(e) => setShowOpenOnly(e.target.checked)}
+                    className="text-green-600"
+                  />
+                  <span className="text-sm">Show Open Pharmacies Only</span>
+                </label>
+              </div>
+
+              {/* Apply/Clear Buttons */}
+              <div className="flex space-x-2 pt-3 border-t">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => {
+                    setSortBy('distance');
+                    setShowOpenOnly(false);
+                  }}
+                >
+                  Clear Filters
+                </Button>
+                <Button
+                  size="sm"
+                  className="flex-1 bg-green-600 hover:bg-green-700"
+                  onClick={() => setFilterOpen(false)}
+                >
+                  Apply
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )}
+
         {/* Pharmacy List */}
         <div className="space-y-4">
           <h2 className="text-lg text-gray-800">{t.nearbyPharmacies}</h2>
-          
+
           {filteredPharmacies.map((pharmacy) => (
             <Card key={pharmacy.id} className="p-4">
               <div className="space-y-3">
@@ -319,11 +631,10 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                       <span className="text-sm text-gray-500">
                         📍 {pharmacy.distance}
                       </span>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        pharmacy.isOpen 
-                          ? 'bg-green-100 text-green-600' 
-                          : 'bg-red-100 text-red-600'
-                      }`}>
+                      <span className={`text-xs px-2 py-1 rounded-full ${pharmacy.isOpen
+                        ? 'bg-green-100 text-green-600'
+                        : 'bg-red-100 text-red-600'
+                        }`}>
                         {pharmacy.isOpen ? t.openNow : t.closedNow}
                         {!pharmacy.isOpen && ` - ${t.opensAt} ${pharmacy.openTime}`}
                       </span>
@@ -349,8 +660,8 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
 
                 {/* Action Buttons */}
                 <div className="flex space-x-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     className="flex-1"
                     onClick={handleCallPharmacy}
@@ -358,8 +669,8 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                     <Phone className="w-4 h-4 mr-1" />
                     {t.callPharmacy}
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     className="flex-1"
                     onClick={handleGetDirections}

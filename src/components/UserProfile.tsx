@@ -3,6 +3,7 @@ import { ArrowLeft, User, Edit, Phone, Mail, MapPin, Heart, AlertTriangle, Users
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Language } from '../App';
+import toast from 'react-hot-toast';
 
 interface UserProfileProps {
   navigateTo: (screen: string, patientId?: string) => void;
@@ -96,14 +97,21 @@ const userData = {
 export function UserProfile({ navigateTo, language }: UserProfileProps) {
   const t = translations[language];
 
+  const handleEditProfile = () => {
+    toast('Coming soon! Profile editing feature will be available soon.', {
+      icon: '✏️',
+      duration: 3000,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Header */}
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => navigateTo('patient-dashboard')}
             >
@@ -111,7 +119,7 @@ export function UserProfile({ navigateTo, language }: UserProfileProps) {
             </Button>
             <h1 className="text-lg text-gray-800">{t.userProfile}</h1>
           </div>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" onClick={handleEditProfile}>
             <Edit className="w-4 h-4 mr-2" />
             {t.edit}
           </Button>
