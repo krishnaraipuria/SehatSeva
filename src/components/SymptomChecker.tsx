@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'; 
-import { ArrowLeft, MessageSquare, Send, Bot, User, AlertTriangle, Phone } from 'lucide-react';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { Input } from './ui/input';
+import React, { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, MessageSquare, Send, Bot, User, Phone } from 'lucide-react';
+// import { Button } from './ui/button'; // ERROR: Removed, as this is a custom component not available here.
+// import { Input } from './ui/input'; // ERROR: Removed, as this is a custom component not available here.
 import { Language } from '../App';
+
+// NOTE: Since the custom Button and Input components from './ui/*' are not available,
+// they have been replaced with standard <button> and <input> elements.
+// Tailwind CSS classes are used to replicate the original styling as closely as possible.
 
 interface SymptomCheckerProps {
   navigateTo: (screen: string) => void;
@@ -21,13 +24,7 @@ const translations = {
     bookConsultation: 'Book Consultation',
     disclaimer: 'This is not a substitute for professional medical advice. Always consult a doctor.',
     commonSymptoms: 'Common Symptoms',
-    fever: 'Fever',
-    headache: 'Headache',
-    cough: 'Cough',
-    bodyPain: 'Body Pain',
-    nausea: 'Nausea',
-    fatigue: 'Fatigue',
-    botTyping: 'Bot is typing...', 
+    botTyping: 'Bot is typing...',
     apiError: 'Sorry, I am unable to respond at the moment. Please try again later.'
   },
   hi: {
@@ -39,12 +36,6 @@ const translations = {
     bookConsultation: 'परामर्श बुक करें',
     disclaimer: 'यह पेशेवर चिकित्सा सलाह का विकल्प नहीं है। हमेशा डॉक्टर से सलाह लें।',
     commonSymptoms: 'आम लक्षण',
-    fever: 'बुखार',
-    headache: 'सिरदर्द',
-    cough: 'खांसी',
-    bodyPain: 'शरीर दर्द',
-    nausea: 'मतली',
-    fatigue: 'थकान',
     botTyping: 'बॉट लिख रहा है...',
     apiError: 'क्षमा करें, मैं इस समय जवाब देने में असमर्थ हूं। कृपया बाद में दोबारा प्रयास करें।'
   },
@@ -57,12 +48,6 @@ const translations = {
     bookConsultation: 'ਸਲਾਹ ਬੁੱਕ ਕਰੋ',
     disclaimer: 'ਇਹ ਪੇਸ਼ੇਵਰ ਮੈਡੀਕਲ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ। ਹਮੇਸ਼ਾ ਡਾਕਟਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।',
     commonSymptoms: 'ਆਮ ਲੱਛਣ',
-    fever: 'ਬੁਖਾਰ',
-    headache: 'ਸਿਰ ਦਰਦ',
-    cough: 'ਖੰਘ',
-    bodyPain: 'ਸਰੀਰ ਦਰਦ',
-    nausea: 'ਕੱਚ',
-    fatigue: 'ਥਕਾਵਟ',
     botTyping: 'ਬੋਟ ਟਾਈਪ ਕਰ ਰਿਹਾ ਹੈ...',
     apiError: 'ਮੁਆਫ ਕਰਨਾ, ਮੈਂ ਇਸ ਸਮੇਂ ਜਵਾਬ ਦੇਣ ਤੋਂ ਅਸਮਰੱਥ ਹਾਂ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।'
   }
@@ -84,11 +69,10 @@ const commonSymptoms = [
   { en: 'Fatigue', hi: 'थकान', pa: 'ਥਕਾਵਟ' }
 ];
 
-
 const getGreeting = (lang: Language) => ({
-    en: "Hello! I'm your AI health assistant. Please describe your symptoms. Remember, this is for informational purposes only. Always consult a doctor for medical advice.",
-    hi: "नमस्ते! मैं आपका AI स्वास्थ्य सहायक हूँ। कृपया अपने लक्षणों का वर्णन करें। याद रखें, यह केवल सूचना के उद्देश्यों के लिए है। चिकित्सीय सलाह के लिए हमेशा डॉक्टर से सलाह लें।",
-    pa: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ AI ਸਿਹਤ ਸਹਾਇਕ ਹਾਂ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਲੱਛਣਾਂ ਦਾ ਵਰਣਨ ਕਰੋ। ਯਾਦ ਰੱਖੋ, ਇਹ ਸਿਰਫ ਜਾਣਕਾਰੀ ਦੇ ਉਦੇਸ਼ਾਂ ਲਈ ਹੈ। ਡਾਕਟਰੀ ਸਲਾਹ ਲਈ ਹਮੇਸ਼ਾ ਡਾਕਟਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+  en: "Hello! I'm your AI health assistant. Please describe your symptoms. Remember, this is for informational purposes only. Always consult a doctor for medical advice.",
+  hi: "नमस्ते! मैं आपका AI स्वास्थ्य सहायक हूँ। कृपया अपने लक्षणों का वर्णन करें। याद रखें, यह केवल सूचना के उद्देश्यों के लिए है। चिकित्सीय सलाह के लिए हमेशा डॉक्टर से सलाह लें।",
+  pa: "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ AI ਸਿਹਤ ਸਹਾਇਕ ਹਾਂ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਲੱਛਣਾਂ ਦਾ ਵਰਣਨ ਕਰੋ। ਯਾਦ ਰੱਖੋ, ਇਹ ਸਿਰਫ ਜਾਣਕਾਰੀ ਦੇ ਉਦੇਸ਼ਾਂ ਲਈ ਹੈ। ਡਾਕਟਰੀ ਸਲਾਹ ਲਈ ਹਮੇਸ਼ਾ ਡਾਕਟਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
 }[lang]);
 
 export function SymptomChecker({ navigateTo, language, isOnline }: SymptomCheckerProps) {
@@ -101,10 +85,9 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
     }
   ]);
   const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const t = translations[language];
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -123,7 +106,6 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
     }]);
   }, [language]);
 
-
   const sendMessage = async (text: string) => {
     if (!text.trim() || isLoading) return;
 
@@ -133,51 +115,57 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
       sender: 'user',
       timestamp: new Date()
     };
-
-    setMessages(prev => [...prev, userMessage]);
+    
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setInputText('');
     setIsLoading(true);
 
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
     
-    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; 
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
-    
-    const conversationHistory = messages.map(msg => ({
+    const systemInstruction = {
+      role: 'user',
+      parts: [{ 
+        text: `You are a helpful and empathetic AI health assistant named 'Sehat Saathi'. Your primary goal is to provide preliminary information based on user's symptoms. ALWAYS include this disclaimer in every response: 'This is not medical advice. Please consult a doctor for a proper diagnosis.' Keep responses concise (2-3 sentences). Respond ONLY in the language code: '${language}'.`
+      }]
+    };
+
+    const modelResponsePriming = {
+        role: 'model',
+        parts: [{
+            text: `Okay, I understand. I will act as Sehat Saathi and follow all instructions. I will reply in language code '${language}'.`
+        }]
+    }
+
+    const conversationHistory = updatedMessages.map(msg => ({
       role: msg.sender === 'bot' ? 'model' : 'user',
       parts: [{ text: msg.text }]
     }));
 
-    const prompt = `You are a helpful and empathetic AI health assistant. Your name is 'Sehat Saathi'. 
-    Your primary goal is to listen to the user's symptoms and provide preliminary information.
-    You must always include the following disclaimer in every response: 'This is not medical advice. Please consult a doctor for a proper diagnosis.'
-    Keep your responses concise, easy to understand, and limited to 2-3 sentences. 
-    Respond in the language code: '${language}'.
-    Current user query is: "${text}"`;
-
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents: [
-              ...conversationHistory,
-              {
-                role: 'user',
-                parts: [{ text: prompt }] 
-              }
+            systemInstruction,
+            modelResponsePriming,
+            ...conversationHistory
           ]
         })
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`Network response was not ok. Status: ${response.status}`);
       }
 
       const data = await response.json();
       
-
+      if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content) {
+          throw new Error('Invalid response structure from API');
+      }
+      
       const botResponseText = data.candidates[0].content.parts[0].text;
 
       const botMessage: Message = {
@@ -202,7 +190,6 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
     }
   };
 
-
   const handleSymptomClick = (symptom: string) => {
     sendMessage(symptom);
   };
@@ -213,33 +200,17 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
       <div className="bg-white shadow-sm p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={() => navigateTo('patient-dashboard')}
-            >
+            <button className="p-2 rounded-md hover:bg-gray-100" onClick={() => navigateTo('patient-dashboard')}>
               <ArrowLeft className="w-5 h-5" />
-            </Button>
+            </button>
             <h1 className="text-lg text-gray-800">{t.symptomChecker}</h1>
           </div>
-          {/* <div className="flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className="text-red-600"
-            >
-              <AlertTriangle className="w-5 h-5 mr-1" />
-              {t.emergency}
-            </Button>
-          </div> */}
         </div>
       </div>
 
       {/* Disclaimer */}
       <div className="bg-yellow-50 p-3 border-l-4 border-yellow-400">
-        <p className="text-yellow-800 text-sm">
-          ⚠️ {t.disclaimer}
-        </p>
+        <p className="text-yellow-800 text-sm">⚠️ {t.disclaimer}</p>
       </div>
 
       {/* Messages */}
@@ -270,7 +241,6 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
           </div>
         ))}
 
-        {/* Loading Indicator */}
         {isLoading && (
           <div className="flex justify-start">
              <div className="max-w-xs lg:max-w-md p-3 rounded-lg bg-white text-gray-800 shadow-sm">
@@ -292,58 +262,56 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
           <h3 className="text-sm font-medium text-gray-700">{t.commonSymptoms}</h3>
           <div className="flex flex-wrap gap-2">
             {commonSymptoms.map((symptom, idx) => (
-              <Button
+              <button
                 key={idx}
-                variant="outline"
-                size="sm"
+                className="px-3 py-1.5 text-sm border border-gray-300 bg-white rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={() => handleSymptomClick(symptom[language])}
+                disabled={isLoading} 
               >
                 {symptom[language]}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Inpu */}
+      {/* Input */}
       <div className="bg-white border-t p-4">
         <div className="flex space-x-2">
-          <Input
+          <input
             placeholder={t.typeSymptoms}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage(inputText)}
-            className="flex-1"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 disabled:bg-gray-100"
             disabled={isLoading} 
           />
-          <Button 
+          <button 
             onClick={() => sendMessage(inputText)}
             disabled={!inputText.trim() || isLoading} 
-            className="bg-green-600 hover:bg-green-700"
+            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
             <Send className="w-5 h-5" />
-          </Button>
+          </button>
         </div>
         
         {/* Action Buttons */}
         <div className="flex space-x-2 mt-3">
-          <Button 
-            variant="outline" 
-            size="sm"
-            className="flex-1"
+          <button 
+            className="flex-1 px-3 py-1.5 text-sm border border-gray-300 bg-white rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             onClick={() => navigateTo('doctor-selection')}
+            disabled={isLoading}
           >
             <MessageSquare className="w-4 h-4 mr-1" />
             {t.bookConsultation}
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm"
-            className="flex-1"
+          </button>
+          <button 
+            className="flex-1 px-3 py-1.5 text-sm border border-gray-300 bg-white rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            disabled={isLoading}
           >
             <Phone className="w-4 h-4 mr-1" />
             {t.callDoctor}
-          </Button>
+          </button>
         </div>
       </div>
     </div>
