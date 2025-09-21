@@ -3,7 +3,7 @@ import { Heart, Stethoscope } from 'lucide-react';
 import { Language } from '../App';
 
 interface SplashProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
 }

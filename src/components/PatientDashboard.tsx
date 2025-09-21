@@ -2,11 +2,13 @@ import React from 'react';
 import { Video, FileText, Pill, MessageCircle, User, LogOut, Bell, MapPin, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
+
 import { Language } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import toast from 'react-hot-toast';
 
 interface PatientDashboardProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   logout: () => void;
   isOnline: boolean;
@@ -72,31 +74,42 @@ const translations = {
 export function PatientDashboard({ navigateTo, language, logout, isOnline }: PatientDashboardProps) {
   const t = translations[language];
 
+  const handleNotificationClick = () => {
+    toast('No new notifications', {
+      icon: '🔔',
+      duration: 2000,
+    });
+  };
+
+  const handleProfileClick = () => {
+    navigateTo('user-profile');
+  };
+
   const quickActions = [
-    { 
-      icon: Video, 
-      label: t.bookConsultation, 
+    {
+      icon: Video,
+      label: t.bookConsultation,
       screen: 'doctor-selection',
       color: 'bg-green-100 text-green-600',
       bgColor: 'bg-green-50'
     },
-    { 
-      icon: Pill, 
-      label: t.checkMedicines, 
+    {
+      icon: Pill,
+      label: t.checkMedicines,
       screen: 'medicine-availability',
       color: 'bg-blue-100 text-blue-600',
       bgColor: 'bg-blue-50'
     },
-    { 
-      icon: FileText, 
-      label: t.healthRecords, 
+    {
+      icon: FileText,
+      label: t.healthRecords,
       screen: 'health-records',
       color: 'bg-purple-100 text-purple-600',
       bgColor: 'bg-purple-50'
     },
-    { 
-      icon: MessageCircle, 
-      label: t.symptomChecker, 
+    {
+      icon: MessageCircle,
+      label: t.symptomChecker,
       screen: 'symptom-checker',
       color: 'bg-orange-100 text-orange-600',
       bgColor: 'bg-orange-50'
@@ -113,10 +126,10 @@ export function PatientDashboard({ navigateTo, language, logout, isOnline }: Pat
             <p className="text-sm text-gray-600">{t.dashboard}</p>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={handleNotificationClick}>
               <Bell className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={handleProfileClick}>
               <User className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="sm" onClick={logout}>
@@ -165,8 +178,8 @@ export function PatientDashboard({ navigateTo, language, logout, isOnline }: Pat
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg text-gray-800">{t.nearbyPharmacies}</h2>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={() => navigateTo('medicine-availability')}
             >
@@ -202,7 +215,7 @@ export function PatientDashboard({ navigateTo, language, logout, isOnline }: Pat
         {/* Health Tip */}
         <Card className="p-4 bg-gradient-to-r from-orange-100 to-yellow-100">
           <div className="flex items-center space-x-3">
-            <ImageWithFallback 
+            <ImageWithFallback
               src="https://images.unsplash.com/photo-1698465281093-9f09159733b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMGhlYWx0aGNhcmUlMjB2aWxsYWdlJTIwZG9jdG9yfGVufDF8fHx8MTc1ODE4MDUwMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
               alt="Health Tip"
               className="w-12 h-12 rounded-full object-cover"
@@ -214,6 +227,7 @@ export function PatientDashboard({ navigateTo, language, logout, isOnline }: Pat
           </div>
         </Card>
       </div>
+
     </div>
   );
 }

@@ -14,6 +14,8 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { VideoConsultationDoctor } from './components/VideoConsultationDoctor';
 import { DoctorSelection } from './components/DoctorSelection';
+import { PatientRecord } from './components/PatientRecord';
+import { UserProfile } from './components/UserProfile';
 
 export type Language = 'en' | 'hi' | 'pa';
 export type UserType = 'patient' | 'doctor' | 'pharmacy' | 'admin';
@@ -24,6 +26,7 @@ export interface AppState {
   userType: UserType | null;
   isLoggedIn: boolean;
   isOnline: boolean;
+  selectedPatientId?: string;
 }
 
 export default function App() {
@@ -32,11 +35,12 @@ export default function App() {
     language: 'en',
     userType: null,
     isLoggedIn: false,
-    isOnline: true
+    isOnline: true,
+    selectedPatientId: undefined
   });
 
-  const navigateTo = (screen: string) => {
-    setAppState(prev => ({ ...prev, currentScreen: screen }));
+  const navigateTo = (screen: string, patientId?: string) => {
+    setAppState(prev => ({ ...prev, currentScreen: screen, selectedPatientId: patientId }));
   };
 
   const setLanguage = (lang: Language) => {
@@ -114,8 +118,12 @@ export default function App() {
         return <AdminDashboard {...commonProps} />;
       case 'doctor-selection':
         return <DoctorSelection {...commonProps} />;
+      case 'patient-record':
+        return <PatientRecord {...commonProps} patientId={appState.selectedPatientId} />;
+      case 'user-profile':
+        return <UserProfile {...commonProps} />;
       default:
-        return <Splash {...commonProps} />;
+        return <Splash {...commonProp />;
     }
   };
 

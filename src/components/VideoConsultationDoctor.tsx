@@ -6,7 +6,7 @@ import { Language } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface VideoConsultationProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   isOnline: boolean;
 }

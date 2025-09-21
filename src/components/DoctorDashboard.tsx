@@ -6,9 +6,10 @@ import { Input } from './ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Language } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import toast from 'react-hot-toast';
 
 interface DoctorDashboardProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   logout: () => void;
   isOnline: boolean;
@@ -83,6 +84,7 @@ const translations = {
 const mockConsultations = [
   {
     id: 1,
+    patientId: 'P001',
     patientName: 'Rajesh Kumar',
     time: '2:00 PM',
     type: 'Follow-up',
@@ -92,6 +94,7 @@ const mockConsultations = [
   },
   {
     id: 2,
+    patientId: 'P002',
     patientName: 'Sunita Devi',
     time: '2:30 PM',
     type: 'General Consultation',
@@ -101,6 +104,7 @@ const mockConsultations = [
   },
   {
     id: 3,
+    patientId: 'P003',
     patientName: 'Harpreet Singh',
     time: '1:30 PM',
     type: 'Prescription Review',
@@ -113,6 +117,7 @@ const mockConsultations = [
 const mockPatients = [
   {
     id: 1,
+    patientId: 'P001',
     name: 'Rajesh Kumar',
     age: 45,
     village: 'Bhadson',
@@ -121,6 +126,7 @@ const mockPatients = [
   },
   {
     id: 2,
+    patientId: 'P002',
     name: 'Sunita Devi',
     age: 38,
     village: 'Amloh',
@@ -129,11 +135,12 @@ const mockPatients = [
   },
   {
     id: 3,
+    patientId: 'P003',
     name: 'Harpreet Singh',
     age: 52,
     village: 'Nabha',
     lastVisit: '2024-01-14',
-    condition: 'Regular checkup'
+    condition: 'Asthma'
   }
 ];
 
@@ -141,6 +148,31 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
   const [activeTab, setActiveTab] = useState('consultations');
   const [searchTerm, setSearchTerm] = useState('');
   const t = translations[language];
+
+  const handleNotificationClick = () => {
+    toast('No new notifications', {
+      icon: '🔔',
+      duration: 2000,
+    });
+  };
+
+  const handleViewRecord = (patientId?: string) => {
+    navigateTo('patient-record', patientId);
+  };
+
+  const handleReschedule = () => {
+    toast('Coming soon! Reschedule feature will be available soon.', {
+      icon: '📅',
+      duration: 3000,
+    });
+  };
+
+  // Filter patients based on search term
+  const filteredPatients = mockPatients.filter(patient =>
+    patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    patient.village.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    patient.condition.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -178,7 +210,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
             <p className="text-sm text-gray-600">{t.doctorDashboard}</p>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={handleNotificationClick}>
               <Bell className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="sm" onClick={logout}>
@@ -250,7 +282,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
                     {getStatusText(consultation.status)}
                   </span>
                 </div>
-                
+
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Type:</span>
@@ -264,8 +296,8 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
 
                 <div className="flex flex-wrap gap-2 mt-4">
                   {consultation.status === 'upcoming' && (
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       className="flex-1 bg-green-600 hover:bg-green-700"
                       onClick={() => navigateTo('video-consultation-doctor')}
                     >
@@ -273,12 +305,12 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
                       {t.startConsultation}
                     </Button>
                   )}
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button variant="outline" size="sm" className="flex-1" onClick={() => handleViewRecord(consultation.patientId)}>
                     <FileText className="w-4 h-4 mr-1" />
                     {t.viewRecords}
                   </Button>
                   {consultation.status === 'upcoming' && (
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" onClick={handleReschedule}>
                       <Clock className="w-4 h-4 mr-1" />
                       {t.reschedule}
                     </Button>
@@ -300,7 +332,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
               />
             </div>
 
-            {mockPatients.map((patient) => (
+            {filteredPatients.map((patient) => (
               <Card key={patient.id} className="p-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -313,7 +345,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-800">{patient.condition}</p>
-                    <Button variant="ghost" size="sm" className="mt-1">
+                    <Button variant="ghost" size="sm" className="mt-1" onClick={() => handleViewRecord(patient.patientId)}>
                       <FileText className="w-4 h-4" />
                     </Button>
                   </div>
