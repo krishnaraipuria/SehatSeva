@@ -4,7 +4,7 @@ import { Language } from '../App';
 
 
 interface SymptomCheckerProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   isOnline: boolean;
 }
@@ -279,6 +279,7 @@ Your instructions are:
             </button>
             <h1 className="text-lg text-gray-800">{t.symptomChecker}</h1>
           </div>
+
         </div>
       </div>
 

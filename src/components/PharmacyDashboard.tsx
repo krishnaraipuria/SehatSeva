@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import { Language } from '../App';
 
 interface PharmacyDashboardProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   logout: () => void;
   isOnline: boolean;
@@ -479,21 +479,10 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
   };
 
   const handleNotificationClick = () => {
-    console.log('Notification button clicked');
-    // Simulate checking for notifications
-    const hasNotifications = Math.random() > 0.5; // Random for demo
-
-    if (hasNotifications) {
-      toast('You have 2 new medicine requests!', {
-        icon: '🔔',
-        duration: 3000,
-      });
-    } else {
-      toast('No new notifications', {
-        icon: '✅',
-        duration: 2000,
-      });
-    }
+    toast('No new notifications', {
+      icon: '🔔',
+      duration: 2000,
+    });
   };
 
   const handleEditMedicine = (medicineId: number) => {
@@ -586,15 +575,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
             <Button
               variant="ghost"
               size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Notification button clicked');
-                toast('No new notifications', {
-                  icon: '🔔',
-                  duration: 2000,
-                });
-              }}
+              onClick={handleNotificationClick}
               className="hover:bg-gray-100"
             >
               <Bell className="w-5 h-5" />
