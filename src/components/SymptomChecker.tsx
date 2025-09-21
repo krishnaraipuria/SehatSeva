@@ -6,7 +6,7 @@ import { Input } from './ui/input';
 import { Language } from '../App';
 
 interface SymptomCheckerProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   isOnline: boolean;
 }
@@ -222,16 +222,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
             </Button>
             <h1 className="text-lg text-gray-800">{t.symptomChecker}</h1>
           </div>
-          {/* <div className="flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className="text-red-600"
-            >
-              <AlertTriangle className="w-5 h-5 mr-1" />
-              {t.emergency}
-            </Button>
-          </div> */}
+
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Language } from '../App';
 
 interface OnboardingProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
 }

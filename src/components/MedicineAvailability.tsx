@@ -5,9 +5,10 @@ import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { Language } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import toast from 'react-hot-toast';
 
 interface MedicineAvailabilityProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   isOnline: boolean;
 }
@@ -129,6 +130,36 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
   const [filterOpen, setFilterOpen] = useState(false);
   const t = translations[language];
 
+  const handleGetDirections = () => {
+    toast('Coming soon! Navigation feature will be available soon.', {
+      icon: '🗺️',
+      duration: 3000,
+    });
+  };
+
+  const handleCallPharmacy = () => {
+    toast('Coming soon! Direct calling feature will be available soon.', {
+      icon: '📞',
+      duration: 3000,
+    });
+  };
+
+  const handleFindNearest = () => {
+    toast('Coming soon! Find nearest pharmacy feature will be available soon.', {
+      icon: '📍',
+      duration: 3000,
+    });
+  };
+
+  // Filter pharmacies based on search query
+  const filteredPharmacies = mockPharmacies.filter(pharmacy => 
+    pharmacy.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    pharmacy.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    pharmacy.medicines.some(medicine => 
+      medicine.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'available':
@@ -199,7 +230,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                   <h3 className="font-medium text-gray-800">{pharmacy.name}</h3>
                   <p className="text-sm text-gray-600">{pharmacy.distance}</p>
                 </div>
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" onClick={handleGetDirections}>
                   <Navigation className="w-4 h-4 mr-1" />
                   {t.getDirections}
                 </Button>
@@ -265,6 +296,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
           <Button 
             variant="outline"
             className="flex-1 h-12"
+            onClick={handleFindNearest}
           >
             <Navigation className="w-5 h-5 mr-2" />
             {t.findNearestPharmacy}
@@ -275,7 +307,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
         <div className="space-y-4">
           <h2 className="text-lg text-gray-800">{t.nearbyPharmacies}</h2>
           
-          {mockPharmacies.map((pharmacy) => (
+          {filteredPharmacies.map((pharmacy) => (
             <Card key={pharmacy.id} className="p-4">
               <div className="space-y-3">
                 {/* Pharmacy Info */}
@@ -321,6 +353,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                     variant="outline" 
                     size="sm"
                     className="flex-1"
+                    onClick={handleCallPharmacy}
                   >
                     <Phone className="w-4 h-4 mr-1" />
                     {t.callPharmacy}
@@ -329,6 +362,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                     variant="outline" 
                     size="sm"
                     className="flex-1"
+                    onClick={handleGetDirections}
                   >
                     <Navigation className="w-4 h-4 mr-1" />
                     {t.getDirections}

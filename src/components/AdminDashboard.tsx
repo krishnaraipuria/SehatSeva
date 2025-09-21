@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Language } from '../App';
 
 interface AdminDashboardProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   logout: () => void;
   isOnline: boolean;

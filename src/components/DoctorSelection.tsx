@@ -5,7 +5,7 @@ import { Language } from '../App';
 import toast from 'react-hot-toast';
 
 interface DoctorSelectionProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
 }
 

@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Language, UserType } from '../App';
 
 interface PatientLoginProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   login: (userType: UserType) => void;
 }

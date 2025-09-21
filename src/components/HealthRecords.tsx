@@ -3,10 +3,12 @@ import { ArrowLeft, FileText, Download, Upload, Calendar, Activity, Pill, TestTu
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Language } from '../App';
+import toast from 'react-hot-toast';
 
 interface HealthRecordsProps {
-  navigateTo: (screen: string) => void;
+  navigateTo: (screen: string, patientId?: string) => void;
   language: Language;
   isOnline: boolean;
 }
@@ -117,7 +119,64 @@ const mockData = {
 
 export function HealthRecords({ navigateTo, language, isOnline }: HealthRecordsProps) {
   const [activeTab, setActiveTab] = useState('overview');
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const t = translations[language];
+
+  const handleDownload = () => {
+    // Create a sample text file content
+    const content = `HEALTH RECORDS SUMMARY
+Patient: Rajesh Kumar
+Patient ID: P001
+Date: ${new Date().toLocaleDateString()}
+
+RECENT CONSULTATION:
+Date: 2024-01-15
+Doctor: Dr. Sharma
+Diagnosis: Routine checkup - all normal
+Notes: Patient in good health. Continue current medications.
+
+CURRENT VITALS:
+Blood Pressure: 120/80 mmHg
+Heart Rate: 72 bpm
+Weight: 68 kg
+Temperature: 98.6°F
+
+CURRENT MEDICATIONS:
+1. Metformin 500mg - Twice daily after meals
+2. Vitamin D3 - Once daily
+
+MEDICAL HISTORY:
+- Diabetes Type 2 (managed)
+- Regular checkups every 3 months
+
+This is a computer-generated summary.
+For detailed records, please consult your healthcare provider.`;
+
+    // Create and download the file
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `health-records-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    
+    toast.success('Health records downloaded successfully!');
+  };
+
+  const handleUpload = () => {
+    setShowUploadModal(true);
+  };
+
+  const handleUploadClick = () => {
+    setShowUploadModal(false);
+    toast('Coming soon! File upload feature will be available soon.', {
+      icon: '📁',
+      duration: 3000,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -135,10 +194,10 @@ export function HealthRecords({ navigateTo, language, isOnline }: HealthRecordsP
             <h1 className="text-lg text-gray-800">{t.healthRecords}</h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={handleUpload}>
               <Upload className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={handleDownload}>
               <Download className="w-5 h-5" />
             </Button>
           </div>
@@ -302,6 +361,28 @@ export function HealthRecords({ navigateTo, language, isOnline }: HealthRecordsP
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Upload Modal */}
+      <Dialog open={showUploadModal} onOpenChange={setShowUploadModal}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Upload Health Records</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+              <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-600 mb-2">Click to upload files</p>
+              <p className="text-sm text-gray-500">Supported formats: PDF, JPG, PNG</p>
+              <Button 
+                className="mt-4" 
+                onClick={handleUploadClick}
+              >
+                Choose Files
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
