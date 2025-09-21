@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'; // useEffect aur useRef ko import karein
+import React, { useState, useEffect, useRef } from 'react'; 
 import { ArrowLeft, MessageSquare, Send, Bot, User, AlertTriangle, Phone } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
@@ -139,7 +139,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
     setIsLoading(true);
 
     
-    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // !!! IMPORTANT
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; 
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
     
     const conversationHistory = messages.map(msg => ({
@@ -222,7 +222,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
             </Button>
             <h1 className="text-lg text-gray-800">{t.symptomChecker}</h1>
           </div>
-          <div className="flex items-center space-x-2">
+          {/* <div className="flex items-center space-x-2">
             <Button 
               variant="ghost" 
               size="sm"
@@ -231,7 +231,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
               <AlertTriangle className="w-5 h-5 mr-1" />
               {t.emergency}
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -270,7 +270,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
           </div>
         ))}
 
-        {/* <<< KADAM 3: Loading Indicator Dikhayein */}
+        {/* Loading Indicator */}
         {isLoading && (
           <div className="flex justify-start">
              <div className="max-w-xs lg:max-w-md p-3 rounded-lg bg-white text-gray-800 shadow-sm">
@@ -305,7 +305,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
         </div>
       )}
 
-      {/* Input */}
+      {/* Inpu */}
       <div className="bg-white border-t p-4">
         <div className="flex space-x-2">
           <Input
@@ -314,11 +314,11 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage(inputText)}
             className="flex-1"
-            disabled={isLoading} // Loading ke time input disable karein
+            disabled={isLoading} 
           />
           <Button 
             onClick={() => sendMessage(inputText)}
-            disabled={!inputText.trim() || isLoading} // Loading ke time button disable karein
+            disabled={!inputText.trim() || isLoading} 
             className="bg-green-600 hover:bg-green-700"
           >
             <Send className="w-5 h-5" />
@@ -331,7 +331,7 @@ export function SymptomChecker({ navigateTo, language, isOnline }: SymptomChecke
             variant="outline" 
             size="sm"
             className="flex-1"
-            onClick={() => navigateTo('video-consultation')}
+            onClick={() => navigateTo('doctor-selection')}
           >
             <MessageSquare className="w-4 h-4 mr-1" />
             {t.bookConsultation}
