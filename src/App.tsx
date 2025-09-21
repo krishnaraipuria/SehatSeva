@@ -123,7 +123,7 @@ export default function App() {
       case 'user-profile':
         return <UserProfile {...commonProps} />;
       default:
-        return <Splash {...commonProp />;
+        return <Splash {...commonProps} />;
     }
   };
 
