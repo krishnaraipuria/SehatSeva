@@ -30,7 +30,8 @@ const translations = {
     chronicConditions: 'Chronic Conditions',
     emergencyContactName: 'Emergency Contact',
     relationship: 'Relationship',
-    emergencyPhone: 'Emergency Phone'
+    emergencyPhone: 'Emergency Phone',
+    comingSoonProfileEditing: 'Coming soon! Profile editing feature will be available soon.'
   },
   hi: {
     userProfile: 'उपयोगकर्ता प्रोफ़ाइल',
@@ -51,7 +52,8 @@ const translations = {
     chronicConditions: 'पुरानी बीमारियां',
     emergencyContactName: 'आपातकालीन संपर्क',
     relationship: 'रिश्ता',
-    emergencyPhone: 'आपातकालीन फोन'
+    emergencyPhone: 'आपातकालीन फोन',
+    comingSoonProfileEditing: 'जल्द आ रहा है! प्रोफ़ाइल संपादन सुविधा जल्द ही उपलब्ध होगी।'
   },
   pa: {
     userProfile: 'ਉਪਭੋਗਤਾ ਪ੍ਰੋਫਾਈਲ',
@@ -72,7 +74,8 @@ const translations = {
     chronicConditions: 'ਪੁਰਾਣੀਆਂ ਬੀਮਾਰੀਆਂ',
     emergencyContactName: 'ਐਮਰਜੈਂਸੀ ਸੰਪਰਕ',
     relationship: 'ਰਿਸ਼ਤਾ',
-    emergencyPhone: 'ਐਮਰਜੈਂਸੀ ਫੋਨ'
+    emergencyPhone: 'ਐਮਰਜੈਂਸੀ ਫੋਨ',
+    comingSoonProfileEditing: 'ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ! ਪ੍ਰੋਫਾਈਲ ਸੰਪਾਦਨ ਸੁਵਿਧਾ ਜਲਦੀ ਹੀ ਉਪਲਬਧ ਹੋਵੇਗੀ।'
   }
 };
 
@@ -98,7 +101,7 @@ export function UserProfile({ navigateTo, language }: UserProfileProps) {
   const t = translations[language];
 
   const handleEditProfile = () => {
-    toast('Coming soon! Profile editing feature will be available soon.', {
+    toast(t.comingSoonProfileEditing, {
       icon: '✏️',
       duration: 3000,
     });

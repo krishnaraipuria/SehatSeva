@@ -58,7 +58,30 @@ const translations = {
     medicineName: 'Medicine Name',
     category: 'Category',
     minStock: 'Minimum Stock',
-    save: 'Save Changes'
+    save: 'Save Changes',
+    pleaseSelectMedicine: 'Please select medicine and enter quantity',
+    medicineNotFound: 'Medicine not found',
+    stockUpdatedSuccessfully: 'Stock updated successfully!',
+    noNewNotifications: 'No new notifications',
+    restockedUnitsSuccessfully: 'units successfully!',
+    markedAsAvailable: 'Marked as available!',
+    calling: 'Calling',
+    pleaseFillAllFields: 'Please fill all fields',
+    pleaseEnterValidNumbers: 'Please enter valid numbers',
+    medicineAddedSuccessfully: 'Medicine added successfully!',
+    medicineUpdatedSuccessfully: 'Medicine updated successfully!',
+    pending: 'Pending',
+    current: 'Current',
+    qty: 'Qty',
+    selectCategory: 'Select Category',
+    painkillers: 'Painkillers',
+    antibiotics: 'Antibiotics',
+    diabetes: 'Diabetes',
+    vitamins: 'Vitamins',
+    cardiovascular: 'Cardiovascular',
+    other: 'Other',
+    ok: 'OK',
+    restocked: 'Restocked'
   },
   hi: {
     pharmacyDashboard: 'फार्मेसी डैशबोर्ड',
@@ -99,7 +122,30 @@ const translations = {
     medicineName: 'दवा का नाम',
     category: 'श्रेणी',
     minStock: 'न्यूनतम स्टॉक',
-    save: 'परिवर्तन सहेजें'
+    save: 'परिवर्तन सहेजें',
+    pleaseSelectMedicine: 'कृपया दवा चुनें और मात्रा दर्ज करें',
+    medicineNotFound: 'दवा नहीं मिली',
+    stockUpdatedSuccessfully: 'स्टॉक सफलतापूर्वक अपडेट हो गया!',
+    noNewNotifications: 'कोई नई सूचना नहीं',
+    restockedUnitsSuccessfully: 'यूनिट सफलतापूर्वक रीस्टॉक हो गईं!',
+    markedAsAvailable: 'उपलब्ध के रूप में चिह्नित!',
+    calling: 'कॉल कर रहे हैं',
+    pleaseFillAllFields: 'कृपया सभी फ़ील्ड भरें',
+    pleaseEnterValidNumbers: 'कृपया वैध संख्याएं दर्ज करें',
+    medicineAddedSuccessfully: 'दवा सफलतापूर्वक जोड़ी गई!',
+    medicineUpdatedSuccessfully: 'दवा सफलतापूर्वक अपडेट हो गई!',
+    pending: 'लंबित',
+    current: 'वर्तमान',
+    qty: 'मात्रा',
+    selectCategory: 'श्रेणी चुनें',
+    painkillers: 'दर्द निवारक',
+    antibiotics: 'एंटीबायोटिक्स',
+    diabetes: 'मधुमेह',
+    vitamins: 'विटामिन',
+    cardiovascular: 'हृदय संबंधी',
+    other: 'अन्य',
+    ok: 'ठीक है',
+    restocked: 'रीस्टॉक किया गया'
   },
   pa: {
     pharmacyDashboard: 'ਦਵਾਖਾਨਾ ਡੈਸ਼ਬੋਰਡ',
@@ -140,7 +186,30 @@ const translations = {
     medicineName: 'ਦਵਾਈ ਦਾ ਨਾਮ',
     category: 'ਸ਼੍ਰੇਣੀ',
     minStock: 'ਘੱਟੋ-ਘੱਟ ਸਟਾਕ',
-    save: 'ਤਬਦੀਲੀਆਂ ਸੇਵ ਕਰੋ'
+    save: 'ਤਬਦੀਲੀਆਂ ਸੇਵ ਕਰੋ',
+    pleaseSelectMedicine: 'ਕਿਰਪਾ ਕਰਕੇ ਦਵਾਈ ਚੁਣੋ ਅਤੇ ਮਾਤਰਾ ਦਰਜ ਕਰੋ',
+    medicineNotFound: 'ਦਵਾਈ ਨਹੀਂ ਮਿਲੀ',
+    stockUpdatedSuccessfully: 'ਸਟਾਕ ਸਫਲਤਾਪੂਰਵਕ ਅਪਡੇਟ ਹੋ ਗਿਆ!',
+    noNewNotifications: 'ਕੋਈ ਨਵੀਂ ਸੂਚਨਾ ਨਹੀਂ',
+    restockedUnitsSuccessfully: 'ਯੂਨਿਟ ਸਫਲਤਾਪੂਰਵਕ ਰੀਸਟਾਕ ਹੋ ਗਈਆਂ!',
+    markedAsAvailable: 'ਉਪਲਬਧ ਵਜੋਂ ਚਿੰਨ੍ਹਿਤ!',
+    calling: 'ਕਾਲ ਕਰ ਰਹੇ ਹਾਂ',
+    pleaseFillAllFields: 'ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖੇਤਰ ਭਰੋ',
+    pleaseEnterValidNumbers: 'ਕਿਰਪਾ ਕਰਕੇ ਵੈਧ ਸੰਖਿਆਵਾਂ ਦਰਜ ਕਰੋ',
+    medicineAddedSuccessfully: 'ਦਵਾਈ ਸਫਲਤਾਪੂਰਵਕ ਜੋੜੀ ਗਈ!',
+    medicineUpdatedSuccessfully: 'ਦਵਾਈ ਸਫਲਤਾਪੂਰਵਕ ਅਪਡੇਟ ਹੋ ਗਈ!',
+    pending: 'ਬਾਕੀ',
+    current: 'ਮੌਜੂਦਾ',
+    qty: 'ਮਾਤਰਾ',
+    selectCategory: 'ਸ਼੍ਰੇਣੀ ਚੁਣੋ',
+    painkillers: 'ਦਰਦ ਨਿਵਾਰਕ',
+    antibiotics: 'ਐਂਟੀਬਾਇਓਟਿਕਸ',
+    diabetes: 'ਸ਼ੂਗਰ',
+    vitamins: 'ਵਿਟਾਮਿਨ',
+    cardiovascular: 'ਦਿਲ ਸੰਬੰਧੀ',
+    other: 'ਹੋਰ',
+    ok: 'ਠੀਕ ਹੈ',
+    restocked: 'ਰੀਸਟਾਕ ਕੀਤਾ ਗਿਆ'
   }
 };
 
@@ -347,13 +416,13 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
   const handleUpdateStock = () => {
     console.log('Update Stock clicked', { selectedMedicine, updateQuantity });
     if (!selectedMedicine || !updateQuantity) {
-      toast.error('Please select medicine and enter quantity');
+      toast.error(t.pleaseSelectMedicine);
       return;
     }
 
     const medicineToUpdate = medicines.find(m => m.name === selectedMedicine);
     if (!medicineToUpdate) {
-      toast.error('Medicine not found');
+      toast.error(t.medicineNotFound);
       return;
     }
 
@@ -378,7 +447,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
     setUpdateStockOpen(false);
     setSelectedMedicine('');
     setUpdateQuantity('');
-    toast.success('Stock updated successfully!');
+    toast.success(t.stockUpdatedSuccessfully);
   };
 
   const handleRestock = () => {
@@ -406,7 +475,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
     setRestockOpen(false);
     setRestockQuantity('');
     setRestockMedicineId(null);
-    toast.success(`Restocked ${addQuantity} units successfully!`);
+    toast.success(`${t.restocked} ${addQuantity} ${t.restockedUnitsSuccessfully}`);
   };
 
   const handleMarkAvailable = (requestId: number) => {
@@ -418,12 +487,12 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
       return request;
     });
     setRequests(updatedRequests);
-    toast.success('Marked as available!');
+    toast.success(t.markedAsAvailable);
   };
 
   const handleCallCustomer = (phone: string) => {
     console.log('Call Customer clicked for phone:', phone);
-    toast.success(`Calling ${phone}...`);
+    toast.success(`${t.calling} ${phone}...`);
   };
 
   const handleAddMedicine = () => {
@@ -433,7 +502,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
 
   const handleSaveAddMedicine = () => {
     if (!addMedicineName || !addMedicineCategory || !addMedicinePrice || !addMedicineQuantity || !addMedicineMinStock) {
-      toast.error('Please fill all fields');
+      toast.error(t.pleaseFillAllFields);
       return;
     }
 
@@ -442,7 +511,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
     const price = parseFloat(addMedicinePrice);
 
     if (isNaN(quantity) || isNaN(minStock) || isNaN(price)) {
-      toast.error('Please enter valid numbers');
+      toast.error(t.pleaseEnterValidNumbers);
       return;
     }
 
@@ -475,11 +544,11 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
     setAddMedicineQuantity('');
     setAddMedicineMinStock('');
 
-    toast.success('Medicine added successfully!');
+    toast.success(t.medicineAddedSuccessfully);
   };
 
   const handleNotificationClick = () => {
-    toast('No new notifications', {
+    toast(t.noNewNotifications, {
       icon: '🔔',
       duration: 2000,
     });
@@ -500,7 +569,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
 
   const handleSaveEditMedicine = () => {
     if (!editMedicineId || !editMedicineName || !editMedicineCategory || !editMedicinePrice || !editMedicineQuantity || !editMedicineMinStock) {
-      toast.error('Please fill all fields');
+      toast.error(t.pleaseFillAllFields);
       return;
     }
 
@@ -509,7 +578,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
     const price = parseFloat(editMedicinePrice);
 
     if (isNaN(quantity) || isNaN(minStock) || isNaN(price)) {
-      toast.error('Please enter valid numbers');
+      toast.error(t.pleaseEnterValidNumbers);
       return;
     }
 
@@ -544,7 +613,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
     setEditMedicineQuantity('');
     setEditMedicineMinStock('');
 
-    toast.success('Medicine updated successfully!');
+    toast.success(t.medicineUpdatedSuccessfully);
   };
 
   const filteredMedicines = medicines.filter(medicine =>
@@ -731,12 +800,12 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
                       <p className="text-sm text-gray-600">📞 {request.phone}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">Qty: {request.quantity}</p>
+                      <p className="font-medium">{t.qty}: {request.quantity}</p>
                       <span className={`text-xs px-2 py-1 rounded-full ${request.status === 'available'
                         ? 'bg-green-100 text-green-600'
                         : 'bg-yellow-100 text-yellow-600'
                         }`}>
-                        {request.status === 'available' ? t.available : 'Pending'}
+                        {request.status === 'available' ? t.available : t.pending}
                       </span>
                     </div>
                   </div>
@@ -791,7 +860,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
                 <option value="">{t.selectMedicine}</option>
                 {medicines.map((medicine) => (
                   <option key={medicine.id} value={medicine.name}>
-                    {medicine.name} (Current: {medicine.quantity})
+                    {medicine.name} ({t.current}: {medicine.quantity})
                   </option>
                 ))}
               </select>
@@ -880,13 +949,13 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
                 onChange={(e) => setEditMedicineCategory(e.target.value)}
                 className="w-full h-8 px-2 py-1 border border-gray-300 rounded-md bg-white text-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
               >
-                <option value="">Select Category</option>
-                <option value="Painkillers">Painkillers</option>
-                <option value="Antibiotics">Antibiotics</option>
-                <option value="Diabetes">Diabetes</option>
-                <option value="Vitamins">Vitamins</option>
-                <option value="Cardiovascular">Cardiovascular</option>
-                <option value="Other">Other</option>
+                <option value="">{t.selectCategory}</option>
+                <option value="Painkillers">{t.painkillers}</option>
+                <option value="Antibiotics">{t.antibiotics}</option>
+                <option value="Diabetes">{t.diabetes}</option>
+                <option value="Vitamins">{t.vitamins}</option>
+                <option value="Cardiovascular">{t.cardiovascular}</option>
+                <option value="Other">{t.other}</option>
               </select>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -973,13 +1042,13 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
                 onChange={(e) => setAddMedicineCategory(e.target.value)}
                 className="w-full h-8 px-2 py-1 border border-gray-300 rounded-md bg-white text-sm focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
               >
-                <option value="">Select Category</option>
-                <option value="Painkillers">Painkillers</option>
-                <option value="Antibiotics">Antibiotics</option>
-                <option value="Diabetes">Diabetes</option>
-                <option value="Vitamins">Vitamins</option>
-                <option value="Cardiovascular">Cardiovascular</option>
-                <option value="Other">Other</option>
+                <option value="">{t.selectCategory}</option>
+                <option value="Painkillers">{t.painkillers}</option>
+                <option value="Antibiotics">{t.antibiotics}</option>
+                <option value="Diabetes">{t.diabetes}</option>
+                <option value="Vitamins">{t.vitamins}</option>
+                <option value="Cardiovascular">{t.cardiovascular}</option>
+                <option value="Other">{t.other}</option>
               </select>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -1049,7 +1118,7 @@ export function PharmacyDashboard({ navigateTo, language, logout, isOnline }: Ph
           </div>
           <div className="flex justify-center mt-4">
             <Button onClick={closeComingSoon} className="bg-blue-600 hover:bg-blue-700 h-10 px-8">
-              OK
+              {t.ok}
             </Button>
           </div>
         </div>
