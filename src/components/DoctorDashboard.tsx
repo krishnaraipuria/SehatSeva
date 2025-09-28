@@ -35,7 +35,13 @@ const translations = {
     pendingReports: 'Pending Reports',
     nextPatient: 'Next Patient',
     minutes: 'minutes',
-    ago: 'ago'
+    ago: 'ago',
+    noNewNotifications: 'No new notifications',
+    comingSoonReschedule: 'Coming soon! Reschedule feature will be available soon.',
+    type: 'Type',
+    symptoms: 'Symptoms',
+    age: 'Age',
+    lastVisit: 'Last visit'
   },
   hi: {
     doctorDashboard: 'डॉक्टर डैशबोर्ड',
@@ -56,7 +62,13 @@ const translations = {
     pendingReports: 'लंबित रिपोर्ट',
     nextPatient: 'अगला मरीज़',
     minutes: 'मिनट',
-    ago: 'पहले'
+    ago: 'पहले',
+    noNewNotifications: 'कोई नई सूचना नहीं',
+    comingSoonReschedule: 'जल्द आ रहा है! फिर से समय निर्धारण की सुविधा जल्द ही उपलब्ध होगी।',
+    type: 'प्रकार',
+    symptoms: 'लक्षण',
+    age: 'उम्र',
+    lastVisit: 'अंतिम यात्रा'
   },
   pa: {
     doctorDashboard: 'ਡਾਕਟਰ ਡੈਸ਼ਬੋਰਡ',
@@ -77,7 +89,13 @@ const translations = {
     pendingReports: 'ਬਾਕੀ ਰਿਪੋਰਟਾਂ',
     nextPatient: 'ਅਗਲਾ ਮਰੀਜ਼',
     minutes: 'ਮਿੰਟ',
-    ago: 'ਪਹਿਲਾਂ'
+    ago: 'ਪਹਿਲਾਂ',
+    noNewNotifications: 'ਕੋਈ ਨਵੀਂ ਸੂਚਨਾ ਨਹੀਂ',
+    comingSoonReschedule: 'ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ! ਮੁੜ ਸਮਾਂ ਨਿਰਧਾਰਣ ਦੀ ਸੁਵਿਧਾ ਜਲਦੀ ਹੀ ਉਪਲਬਧ ਹੋਵੇਗੀ।',
+    type: 'ਕਿਸਮ',
+    symptoms: 'ਲੱਛਣ',
+    age: 'ਉਮਰ',
+    lastVisit: 'ਆਖਰੀ ਮੁਲਾਕਾਤ'
   }
 };
 
@@ -150,7 +168,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
   const t = translations[language];
 
   const handleNotificationClick = () => {
-    toast('No new notifications', {
+    toast(t.noNewNotifications, {
       icon: '🔔',
       duration: 2000,
     });
@@ -161,7 +179,7 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
   };
 
   const handleReschedule = () => {
-    toast('Coming soon! Reschedule feature will be available soon.', {
+    toast(t.comingSoonReschedule, {
       icon: '📅',
       duration: 3000,
     });
@@ -285,11 +303,11 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
 
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Type:</span>
+                    <span className="text-gray-600">{t.type}:</span>
                     <span>{consultation.type}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Symptoms:</span>
+                    <span className="text-gray-600">{t.symptoms}:</span>
                     <span>{consultation.symptoms}</span>
                   </div>
                 </div>
@@ -340,8 +358,8 @@ export function DoctorDashboard({ navigateTo, language, logout, isOnline }: Doct
                   </div>
                   <div className="flex-1">
                     <h3 className="font-medium text-gray-800">{patient.name}</h3>
-                    <p className="text-sm text-gray-600">Age: {patient.age} • {patient.village}</p>
-                    <p className="text-xs text-gray-500">Last visit: {patient.lastVisit}</p>
+                    <p className="text-sm text-gray-600">{t.age}: {patient.age} • {patient.village}</p>
+                    <p className="text-xs text-gray-500">{t.lastVisit}: {patient.lastVisit}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-800">{patient.condition}</p>

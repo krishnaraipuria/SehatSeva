@@ -33,7 +33,18 @@ const translations = {
     allergies: 'Allergies',
     chronicConditions: 'Chronic Conditions',
     lastVisit: 'Last Visit',
-    nextAppointment: 'Next Appointment'
+    nextAppointment: 'Next Appointment',
+    history: 'History',
+    meds: 'Meds',
+    contactInformation: 'Contact Information',
+    medicalInformation: 'Medical Information',
+    diagnosis: 'Diagnosis',
+    notes: 'Notes',
+    prescription: 'Prescription',
+    dosage: 'Dosage',
+    duration: 'Duration',
+    patientId: 'Patient ID',
+    years: 'years'
   },
   hi: {
     patientRecord: 'मरीज़ का रिकॉर्ड',
@@ -56,7 +67,18 @@ const translations = {
     allergies: 'एलर्जी',
     chronicConditions: 'पुरानी बीमारियां',
     lastVisit: 'अंतिम मुलाकात',
-    nextAppointment: 'अगली अपॉइंटमेंट'
+    nextAppointment: 'अगली अपॉइंटमेंट',
+    history: 'इतिहास',
+    meds: 'दवाएं',
+    contactInformation: 'संपर्क जानकारी',
+    medicalInformation: 'चिकित्सा जानकारी',
+    diagnosis: 'निदान',
+    notes: 'नोट्स',
+    prescription: 'नुस्खा',
+    dosage: 'खुराक',
+    duration: 'अवधि',
+    patientId: 'मरीज़ आईडी',
+    years: 'साल'
   },
   pa: {
     patientRecord: 'ਮਰੀਜ਼ ਦਾ ਰਿਕਾਰਡ',
@@ -79,7 +101,18 @@ const translations = {
     allergies: 'ਐਲਰਜੀ',
     chronicConditions: 'ਪੁਰਾਣੀਆਂ ਬੀਮਾਰੀਆਂ',
     lastVisit: 'ਆਖਰੀ ਮੁਲਾਕਾਤ',
-    nextAppointment: 'ਅਗਲੀ ਮੁਲਾਕਾਤ'
+    nextAppointment: 'ਅਗਲੀ ਮੁਲਾਕਾਤ',
+    history: 'ਇਤਿਹਾਸ',
+    meds: 'ਦਵਾਈਆਂ',
+    contactInformation: 'ਸੰਪਰਕ ਜਾਣਕਾਰੀ',
+    medicalInformation: 'ਮੈਡੀਕਲ ਜਾਣਕਾਰੀ',
+    diagnosis: 'ਨਿਦਾਨ',
+    notes: 'ਨੋਟਸ',
+    prescription: 'ਨੁਸਖਾ',
+    dosage: 'ਖੁਰਾਕ',
+    duration: 'ਮਿਆਦ',
+    patientId: 'ਮਰੀਜ਼ ਆਈਡੀ',
+    years: 'ਸਾਲ'
   }
 };
 
@@ -287,9 +320,9 @@ export function PatientRecord({ navigateTo, language, patientId }: PatientRecord
             </div>
             <div className="flex-1">
               <h2 className="text-xl font-medium text-gray-800">{mockPatientData.name}</h2>
-              <p className="text-sm text-gray-600">Patient ID: {mockPatientData.id}</p>
+              <p className="text-sm text-gray-600">{t.patientId}: {mockPatientData.id}</p>
               <div className="flex items-center space-x-4 mt-1">
-                <span className="text-sm text-gray-600">{mockPatientData.age} years</span>
+                <span className="text-sm text-gray-600">{mockPatientData.age} {t.years}</span>
                 <span className="text-sm text-gray-600">{mockPatientData.gender}</span>
                 <span className="text-sm text-gray-600">{mockPatientData.bloodGroup}</span>
               </div>
@@ -301,14 +334,14 @@ export function PatientRecord({ navigateTo, language, patientId }: PatientRecord
         <Tabs defaultValue="personal" className="space-y-4">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="personal" className="text-xs px-2">{t.personalInfo}</TabsTrigger>
-            <TabsTrigger value="history" className="text-xs px-2">History</TabsTrigger>
+            <TabsTrigger value="history" className="text-xs px-2">{t.history}</TabsTrigger>
             <TabsTrigger value="vitals" className="text-xs px-2">{t.vitals}</TabsTrigger>
-            <TabsTrigger value="prescriptions" className="text-xs px-2">Meds</TabsTrigger>
+            <TabsTrigger value="prescriptions" className="text-xs px-2">{t.meds}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="personal" className="space-y-4">
             <Card className="p-4">
-              <h3 className="font-medium text-gray-800 mb-3">Contact Information</h3>
+              <h3 className="font-medium text-gray-800 mb-3">{t.contactInformation}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">{t.phone}:</span>
@@ -326,7 +359,7 @@ export function PatientRecord({ navigateTo, language, patientId }: PatientRecord
             </Card>
 
             <Card className="p-4">
-              <h3 className="font-medium text-gray-800 mb-3">Medical Information</h3>
+              <h3 className="font-medium text-gray-800 mb-3">{t.medicalInformation}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-600">{t.allergies}:</span>
@@ -362,15 +395,15 @@ export function PatientRecord({ navigateTo, language, patientId }: PatientRecord
                 </div>
                 <div className="space-y-2">
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Diagnosis:</p>
+                    <p className="text-sm font-medium text-gray-700">{t.diagnosis}:</p>
                     <p className="text-sm text-gray-600">{consultation.diagnosis}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Notes:</p>
+                    <p className="text-sm font-medium text-gray-700">{t.notes}:</p>
                     <p className="text-sm text-gray-600">{consultation.notes}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-700">Prescription:</p>
+                    <p className="text-sm font-medium text-gray-700">{t.prescription}:</p>
                     <p className="text-sm text-gray-600">{consultation.prescription}</p>
                   </div>
                 </div>
@@ -414,11 +447,11 @@ export function PatientRecord({ navigateTo, language, patientId }: PatientRecord
                 </div>
                 <div className="space-y-1">
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Dosage:</span>
+                    <span className="text-sm text-gray-600">{t.dosage}:</span>
                     <span className="text-sm">{prescription.dosage}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Duration:</span>
+                    <span className="text-sm text-gray-600">{t.duration}:</span>
                     <span className="text-sm">{prescription.duration}</span>
                   </div>
                 </div>

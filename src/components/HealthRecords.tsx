@@ -32,7 +32,9 @@ const translations = {
     syncWhenOnline: 'Will sync when online',
     noRecords: 'No records found',
     recentConsultation: 'Recent Consultation',
-    currentMedication: 'Current Medication'
+    currentMedication: 'Current Medication',
+    healthRecordsDownloaded: 'Health records downloaded successfully!',
+    comingSoonFileUpload: 'Coming soon! File upload feature will be available soon.'
   },
   hi: {
     healthRecords: 'स्वास्थ्य रिकॉर्ड',
@@ -52,7 +54,9 @@ const translations = {
     syncWhenOnline: 'ऑनलाइन होने पर सिंक होगा',
     noRecords: 'कोई रिकॉर्ड नहीं मिला',
     recentConsultation: 'हाल का परामर्श',
-    currentMedication: 'वर्तमान दवा'
+    currentMedication: 'वर्तमान दवा',
+    healthRecordsDownloaded: 'स्वास्थ्य रिकॉर्ड सफलतापूर्वक डाउनलोड हो गए!',
+    comingSoonFileUpload: 'जल्द आ रहा है! फ़ाइल अपलोड सुविधा जल्द ही उपलब्ध होगी।'
   },
   pa: {
     healthRecords: 'ਸਿਹਤ ਰਿਕਾਰਡ',
@@ -72,7 +76,9 @@ const translations = {
     syncWhenOnline: 'ਆਨਲਾਈਨ ਹੋਣ ਤੇ ਸਿੰਕ ਹੋਵੇਗਾ',
     noRecords: 'ਕੋਈ ਰਿਕਾਰਡ ਨਹੀਂ ਮਿਲਿਆ',
     recentConsultation: 'ਹਾਲ ਦੀ ਸਲਾਹ',
-    currentMedication: 'ਮੌਜੂਦਾ ਦਵਾਈ'
+    currentMedication: 'ਮੌਜੂਦਾ ਦਵਾਈ',
+    healthRecordsDownloaded: 'ਸਿਹਤ ਰਿਕਾਰਡ ਸਫਲਤਾਪੂਰਵਕ ਡਾਉਨਲੋਡ ਹੋ ਗਏ!',
+    comingSoonFileUpload: 'ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ! ਫਾਈਲ ਅਪਲੋਡ ਸੁਵਿਧਾ ਜਲਦੀ ਹੀ ਉਪਲਬਧ ਹੋਵੇਗੀ।'
   }
 };
 
@@ -162,11 +168,11 @@ For detailed records, please consult your healthcare provider.`;
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
     
-    toast.success('Health records downloaded successfully!');
+    toast.success(t.healthRecordsDownloaded);
   };
 
   const handleUpload = () => {
-    toast('Coming soon! File upload feature will be available soon.', {
+    toast(t.comingSoonFileUpload, {
       icon: '📁',
       duration: 3000,
     });

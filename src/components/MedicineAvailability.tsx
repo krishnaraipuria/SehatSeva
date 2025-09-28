@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowLeft, MapPin, Search, Pill, Clock, Phone, Navigation, Filter } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowLeft, MapPin, Search, Phone, Navigation, Filter } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -32,7 +32,25 @@ const translations = {
     viewMap: 'View Map',
     filter: 'Filter',
     openOnly: 'Open Only',
-    withStock: 'With Stock'
+    withStock: 'With Stock',
+    filterAndSort: 'Filter & Sort',
+    sortBy: 'Sort By',
+    distanceNearestFirst: 'Distance (Nearest First)',
+    priceLowToHigh: 'Price (Low to High)',
+    priceHighToLow: 'Price (High to Low)',
+    availability: 'Availability',
+    filterOptions: 'Filter Options',
+    showOpenPharmaciesOnly: 'Show Open Pharmacies Only',
+    clearFilters: 'Clear Filters',
+    apply: 'Apply',
+    backToList: 'Back to List',
+    pharmacyMap: 'Pharmacy Map',
+    interactiveMapView: 'Interactive Map View',
+    showingNearbyPharmacies: 'Showing nearby pharmacies',
+    medicineStock: 'Medicine Stock',
+    comingSoonNavigation: 'Coming soon! Navigation feature will be available soon.',
+    comingSoonCalling: 'Coming soon! Direct calling feature will be available soon.',
+    comingSoonFindNearest: 'Coming soon! Find nearest pharmacy feature will be available soon.'
   },
   hi: {
     medicineAvailability: 'दवा की उपलब्धता',
@@ -52,7 +70,25 @@ const translations = {
     viewMap: 'मैप देखें',
     filter: 'फिल्टर',
     openOnly: 'केवल खुली',
-    withStock: 'स्टॉक के साथ'
+    withStock: 'स्टॉक के साथ',
+    filterAndSort: 'फिल्टर और सॉर्ट',
+    sortBy: 'इसके अनुसार सॉर्ट करें',
+    distanceNearestFirst: 'दूरी (सबसे पास पहले)',
+    priceLowToHigh: 'कीमत (कम से ज्यादा)',
+    priceHighToLow: 'कीमत (ज्यादा से कम)',
+    availability: 'उपलब्धता',
+    filterOptions: 'फिल्टर विकल्प',
+    showOpenPharmaciesOnly: 'केवल खुली फार्मेसियां दिखाएं',
+    clearFilters: 'फिल्टर साफ़ करें',
+    apply: 'लागू करें',
+    backToList: 'सूची पर वापस',
+    pharmacyMap: 'फार्मेसी मैप',
+    interactiveMapView: 'इंटरैक्टिव मैप व्यू',
+    showingNearbyPharmacies: 'पास की फार्मेसियां दिखा रहे हैं',
+    medicineStock: 'दवा स्टॉक',
+    comingSoonNavigation: 'जल्द आ रहा है! नेवीगेशन फीचर जल्द ही उपलब्ध होगा।',
+    comingSoonCalling: 'जल्द आ रहा है! डायरेक्ट कॉलिंग फीचर जल्द ही उपलब्ध होगा।',
+    comingSoonFindNearest: 'जल्द आ रहा है! निकटतम फार्मेसी खोजने का फीचर जल्द ही उपलब्ध होगा।'
   },
   pa: {
     medicineAvailability: 'ਦਵਾਈ ਦੀ ਉਪਲਬਧਤਾ',
@@ -72,7 +108,25 @@ const translations = {
     viewMap: 'ਨਕਸ਼ਾ ਦੇਖੋ',
     filter: 'ਫਿਲਟਰ',
     openOnly: 'ਸਿਰਫ਼ ਖੁੱਲ੍ਹੇ',
-    withStock: 'ਸਟਾਕ ਦੇ ਨਾਲ'
+    withStock: 'ਸਟਾਕ ਦੇ ਨਾਲ',
+    filterAndSort: 'ਫਿਲਟਰ ਅਤੇ ਸਾਰਟ',
+    sortBy: 'ਇਸ ਅਨੁਸਾਰ ਸਾਰਟ ਕਰੋ',
+    distanceNearestFirst: 'ਦੂਰੀ (ਸਭ ਤੋਂ ਨੇੜੇ ਪਹਿਲਾਂ)',
+    priceLowToHigh: 'ਕੀਮਤ (ਘੱਟ ਤੋਂ ਜ਼ਿਆਦਾ)',
+    priceHighToLow: 'ਕੀਮਤ (ਜ਼ਿਆਦਾ ਤੋਂ ਘੱਟ)',
+    availability: 'ਉਪਲਬਧਤਾ',
+    filterOptions: 'ਫਿਲਟਰ ਵਿਕਲਪ',
+    showOpenPharmaciesOnly: 'ਸਿਰਫ਼ ਖੁੱਲ੍ਹੇ ਦਵਾਖਾਨੇ ਦਿਖਾਓ',
+    clearFilters: 'ਫਿਲਟਰ ਸਾਫ਼ ਕਰੋ',
+    apply: 'ਲਾਗੂ ਕਰੋ',
+    backToList: 'ਸੂਚੀ ਵਿੱਚ ਵਾਪਸ',
+    pharmacyMap: 'ਦਵਾਖਾਨਾ ਨਕਸ਼ਾ',
+    interactiveMapView: 'ਇੰਟਰਐਕਟਿਵ ਮੈਪ ਵਿਊ',
+    showingNearbyPharmacies: 'ਨੇੜਲੇ ਦਵਾਖਾਨੇ ਦਿਖਾ ਰਹੇ ਹਾਂ',
+    medicineStock: 'ਦਵਾਈ ਸਟਾਕ',
+    comingSoonNavigation: 'ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ! ਨੇਵੀਗੇਸ਼ਨ ਫੀਚਰ ਜਲਦੀ ਹੀ ਉਪਲਬਧ ਹੋਵੇਗਾ।',
+    comingSoonCalling: 'ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ! ਡਾਇਰੈਕਟ ਕਾਲਿੰਗ ਫੀਚਰ ਜਲਦੀ ਹੀ ਉਪਲਬਧ ਹੋਵੇਗਾ।',
+    comingSoonFindNearest: 'ਜਲਦੀ ਆ ਰਿਹਾ ਹੈ! ਸਭ ਤੋਂ ਨੇੜਲਾ ਦਵਾਖਾਨਾ ਲੱਭਣ ਦਾ ਫੀਚਰ ਜਲਦੀ ਹੀ ਉਪਲਬਧ ਹੋਵੇਗਾ।'
   }
 };
 
@@ -257,7 +311,7 @@ const mockPharmacies = [
   }
 ];
 
-export function MedicineAvailability({ navigateTo, language, isOnline }: MedicineAvailabilityProps) {
+export function MedicineAvailability({ navigateTo, language }: MedicineAvailabilityProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showMap, setShowMap] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -266,21 +320,21 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
   const t = translations[language];
 
   const handleGetDirections = () => {
-    toast('Coming soon! Navigation feature will be available soon.', {
+    toast(t.comingSoonNavigation, {
       icon: '🗺️',
       duration: 3000,
     });
   };
 
   const handleCallPharmacy = () => {
-    toast('Coming soon! Direct calling feature will be available soon.', {
+    toast(t.comingSoonCalling, {
       icon: '📞',
       duration: 3000,
     });
   };
 
   const handleFindNearest = () => {
-    toast('Coming soon! Find nearest pharmacy feature will be available soon.', {
+    toast(t.comingSoonFindNearest, {
       icon: '📍',
       duration: 3000,
     });
@@ -410,9 +464,9 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
               onClick={() => setShowMap(false)}
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to List
+              {t.backToList}
             </Button>
-            <h1 className="text-lg text-gray-800">Pharmacy Map</h1>
+            <h1 className="text-lg text-gray-800">{t.pharmacyMap}</h1>
             <div></div>
           </div>
         </div>
@@ -427,8 +481,8 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-white p-4 rounded-lg shadow-lg">
               <MapPin className="w-8 h-8 text-red-500 mx-auto mb-2" />
-              <p className="text-center text-sm">Interactive Map View</p>
-              <p className="text-center text-xs text-gray-500">Showing nearby pharmacies</p>
+              <p className="text-center text-sm">{t.interactiveMapView}</p>
+              <p className="text-center text-xs text-gray-500">{t.showingNearbyPharmacies}</p>
             </div>
           </div>
         </div>
@@ -522,12 +576,12 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
         {/* Filter Dropdown */}
         {filterOpen && (
           <Card className="p-4 bg-white shadow-lg">
-            <h3 className="font-medium text-gray-800 mb-3">Filter & Sort</h3>
+            <h3 className="font-medium text-gray-800 mb-3">{t.filterAndSort}</h3>
 
             {/* Sort Options */}
             <div className="space-y-3">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">Sort By</label>
+                <label className="text-sm font-medium text-gray-700 mb-2 block">{t.sortBy}</label>
                 <div className="space-y-2">
                   <label className="flex items-center space-x-2">
                     <input
@@ -538,7 +592,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                       onChange={(e) => setSortBy(e.target.value)}
                       className="text-green-600"
                     />
-                    <span className="text-sm">Distance (Nearest First)</span>
+                    <span className="text-sm">{t.distanceNearestFirst}</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
@@ -549,7 +603,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                       onChange={(e) => setSortBy(e.target.value)}
                       className="text-green-600"
                     />
-                    <span className="text-sm">Price (Low to High)</span>
+                    <span className="text-sm">{t.priceLowToHigh}</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
@@ -560,7 +614,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                       onChange={(e) => setSortBy(e.target.value)}
                       className="text-green-600"
                     />
-                    <span className="text-sm">Price (High to Low)</span>
+                    <span className="text-sm">{t.priceHighToLow}</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input
@@ -571,14 +625,14 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                       onChange={(e) => setSortBy(e.target.value)}
                       className="text-green-600"
                     />
-                    <span className="text-sm">Availability</span>
+                    <span className="text-sm">{t.availability}</span>
                   </label>
                 </div>
               </div>
 
               {/* Filter Options */}
               <div className="border-t pt-3">
-                <label className="text-sm font-medium text-gray-700 mb-2 block">Filter Options</label>
+                <label className="text-sm font-medium text-gray-700 mb-2 block">{t.filterOptions}</label>
                 <label className="flex items-center space-x-2">
                   <input
                     type="checkbox"
@@ -586,7 +640,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                     onChange={(e) => setShowOpenOnly(e.target.checked)}
                     className="text-green-600"
                   />
-                  <span className="text-sm">Show Open Pharmacies Only</span>
+                  <span className="text-sm">{t.showOpenPharmaciesOnly}</span>
                 </label>
               </div>
 
@@ -601,14 +655,14 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
                     setShowOpenOnly(false);
                   }}
                 >
-                  Clear Filters
+                  {t.clearFilters}
                 </Button>
                 <Button
                   size="sm"
                   className="flex-1 bg-green-600 hover:bg-green-700"
                   onClick={() => setFilterOpen(false)}
                 >
-                  Apply
+                  {t.apply}
                 </Button>
               </div>
             </div>
@@ -644,7 +698,7 @@ export function MedicineAvailability({ navigateTo, language, isOnline }: Medicin
 
                 {/* Medicine Availability */}
                 <div className="space-y-2">
-                  <h4 className="text-sm font-medium text-gray-700">Medicine Stock:</h4>
+                  <h4 className="text-sm font-medium text-gray-700">{t.medicineStock}:</h4>
                   {pharmacy.medicines.map((medicine, idx) => (
                     <div key={idx} className="flex items-center justify-between bg-gray-50 p-2 rounded">
                       <span className="text-sm">{medicine.name}</span>
