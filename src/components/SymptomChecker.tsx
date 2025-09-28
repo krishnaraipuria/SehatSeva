@@ -222,10 +222,10 @@ Your instructions are:
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
+                'Authorization': `Bearer ${API_KEY}`,
             },
             body: JSON.stringify({
-                model: 'google/gemini-flash-1.5',
+                model: 'openai/gpt-4o-mini',
                 messages: [
                     { role: 'system', content: systemInstruction },
                     ...apiMessages
